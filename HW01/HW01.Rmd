@@ -1,0 +1,131 @@
+---
+title: 'Assignment #1'
+author: "Elliot Smith"
+date: "8/26/2018"
+output: pdf_document
+---
+
+# Problem 1
+
+## Part i
+
+$f(x)$ is the pdf of any of the $x_i$, and since they are $iid$, they all follow one pdf.
+
+The joint pdf is: $f_{X_1, ..., X_n}(x_1, ..., x_n) = f(x_1) \times ... \times f(x_n)$ because they are $iid$.
+
+Since you can multiply the right-hand side in any order, this implies symmetry in regards to the left-hand side.
+
+As a result, $X_1, ..., X_n$ are exchangeable.
+
+## Part ii
+
+\[
+\begin{aligned}
+p(y_1, ..., y_n) & = \int p(y_1, ..., y_n|\theta)p(\theta)d(\theta) \\
+& = \int \left(\prod_{i=1}^{n} p(y_i|\theta)\right)p(\theta)d(\theta)) \\
+& = \int \left(\prod_{i=1}^{n} p(y_{\pi_i}|\theta)\right)p(\theta)d(\theta)) \\
+& = \int p(y_{\pi_1, ..., y_{\pi_n}}|\theta)p(\theta)d(\theta) \\
+& = p(y_{\pi_1, ..., y_{\pi_n}})
+\end{aligned}
+\]
+
+# Problem 2
+
+## Part a
+
+Prior Density: $p(\theta) = 1$
+\newline
+Sampling Distribution: $p(y|\theta) = \binom{n}{y}\theta^y(1 - \theta)^{n - y}$
+\newline
+\newline
+Posterior Density: $p(\theta|y) \propto p(y|\theta)p(\theta) = \binom{n}{y}\theta^y(1 - \theta)^{n - y}$
+\newline
+Posterior Distribution: $\theta|y \sim Beta(y + 1, (n - y) + 1)$
+\newline
+
+\[
+\begin{aligned}
+\binom{n}{y}\frac{\Gamma(y + 1)\Gamma(n - y + 1)}{\Gamma((y + 1) + (n - y + 1))} & = \binom{n}{y}\frac{\Gamma(y + 1)\Gamma(n - y + 1)}{\Gamma(n + 2)} \\
+& = \frac{n!}{y!(n - y)!}\frac{y!(n - y)!}{(n + 1)!} \\
+& = \frac{n!}{(n + 1)!} \\
+& = \frac{1}{n + 1}
+\end{aligned}
+\]
+
+## Part b
+
+Prior Distribution: $\theta \sim Beta(\alpha, \beta)$
+\newline
+Sampling Distribution: $y|\theta \sim Binomial(n, \theta)$
+\newline
+\newline
+Posterior Density:
+\newline
+\[
+\begin{aligned}
+p(\theta|y) & = \binom{n}{y}\theta^y(1 - \theta)^{n - y} \times \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha - 1}(1 - \theta)^{\beta - 1} \\
+& = \binom{n}{y}\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{y + \alpha - 1}(1 - \theta)^{n - y + \beta - 1} \\
+& \propto Beta(y + \alpha, (n - y) + \beta)
+\end{aligned}
+\]
+\newline
+Posterior Mean:
+\newline
+\[
+\begin{aligned}
+\frac{y + \alpha}{\alpha + \beta + n} & = \frac{y}{n} + \lambda\left(\frac{\alpha}{\alpha + \beta} - \frac{y}{n}\right) \\
+\frac{y + \alpha}{\alpha + \beta + n} - \frac{y}{n} & = \lambda\left(\frac{\alpha}{\alpha + \beta} - \frac{y}{n}\right) \\
+\frac{ny + n\alpha - \alpha{y} - \beta{y} - ny}{(\alpha + \beta + n)n} & = \lambda\left(\frac{n\alpha - \alpha{y} - \beta{y}}{(\alpha + \beta)n}\right) \\
+\lambda & = \frac{\alpha + \beta}{\alpha + \beta + n}
+\end{aligned}
+\]
+\newline
+Since $\lambda$ will always be between $0$ and $1$ the Posterior Mean will act as a weighted average between our Prior Mean, $\frac{y}{n}$, and the data.
+
+## Part c
+
+Posterior Density: $\theta|y \sim Beta (y + \alpha, (n - y) + \beta)$
+\newline
+Prior Variance ($\alpha = 1, \beta = 1$): $\frac{1}{12}$
+\newline
+Posterior Variance ($\alpha = 1, \beta = 1$):
+\newline
+\newline
+\[
+\begin{aligned}
+\frac{(y + 1)(n - y + 1)}{(n + 2)^2{(n + 3)}} & = \frac{ny - y^2 + y + n - y + 1}{(n^2 + 4n + 4)(n + 3)} \\
+& = \frac{ny - y^2 + y + n - y + 1}{n^3 + 3n^2 + 4n^2 + 12n + 4n + 12} \\
+& = \frac{-y^2 +ny + n + 1}{n^3 + 7n^2 + 16n + 12}
+\end{aligned}
+\]
+\newline
+Now, we can deduce that smaller values of n will maximize this quantity; since $n \geq y$, we will set $n = y = 1$.
+\newline
+\newline
+Posterior Variance ($n = y = 1$): $\frac{-y^2 +ny + n + 1}{n^3 + 7n^2 + 16n + 12} = \frac{2}{36} = \frac{1}{18}$
+\newline
+\newline
+Thus, the Posterior Variance, which we just minimized, is always less than the Prior Variance of $\frac{1}{12}$.
+
+## Part d
+
+* $n = y = 1$
+* $\alpha = 1$
+* $\beta = 10$
+
+Prior Variance: $\frac{(1)(10)}{(11)^{2}(12)} = \frac{10}{1452} = 0.0069$
+\newline
+Posterior Variance: $\frac{(2)(10)}{(12)^{2}(13)} = \frac{20}{1872} = 0.0107$
+
+# Problem 3
+
+## Part a
+
+
+
+
+
+
+
+
+
