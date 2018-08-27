@@ -80,3 +80,116 @@ post_density <- dbeta(x = theta,
 ggplot() +
     geom_line(aes(x = theta, y = post_density)) +
     labs(x = "Theta", y = "Density", title = "Beta Density")
+
+
+
+##### Part c
+
+
+
+## First sensitivity check
+
+
+
+## Set the sample size
+
+n <- 10
+
+## Set the number of yes votes
+
+y <- n * 0.20
+
+## Set post alpha and beta
+
+post_alpha <- y + beta_params[1]
+post_beta <- (n - y) + beta_params[2]
+
+## Posterior mean and variance
+
+post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
+post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+
+## Calculate the posterior density
+
+post_density <- dbeta(x = theta,
+                      shape1 = post_alpha,
+                      shape2 = post_beta)
+
+## Build the density plot
+
+ggplot() +
+    geom_line(aes(x = theta, y = post_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density")
+
+
+
+## Second sensitivity check
+
+
+
+## Set the sample size
+
+n <- 100
+
+## Set the number of yes votes
+
+y <- n * 0.95
+
+## Set post alpha and beta
+
+post_alpha <- y + beta_params[1]
+post_beta <- (n - y) + beta_params[2]
+
+## Posterior mean and variance
+
+post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
+post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+
+## Calculate the posterior density
+
+post_density <- dbeta(x = theta,
+                      shape1 = post_alpha,
+                      shape2 = post_beta)
+
+## Build the density plot
+
+ggplot() +
+    geom_line(aes(x = theta, y = post_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density")
+
+
+
+
+## Third sensitivity check
+
+
+
+## Set the sample size
+
+n <- 500
+
+## Set the number of yes votes
+
+y <- n * 0.5
+
+## Set post alpha and beta
+
+post_alpha <- y + beta_params[1]
+post_beta <- (n - y) + beta_params[2]
+
+## Posterior mean and variance
+
+post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
+post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+
+## Calculate the posterior density
+
+post_density <- dbeta(x = theta,
+                      shape1 = post_alpha,
+                      shape2 = post_beta)
+
+## Build the density plot
+
+ggplot() +
+    geom_line(aes(x = theta, y = post_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density")
