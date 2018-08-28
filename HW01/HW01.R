@@ -3,6 +3,12 @@
 
 library(ggplot2)
 
+
+
+##### Problem 3 #####
+
+
+
 ## Set mean and variance
 
 mu <- 0.6
@@ -67,7 +73,8 @@ post_beta <- (n - y) + beta_params[2]
 ## Posterior mean and variance
 
 post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
-post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+post_var <- round(sqrt((post_alpha * post_beta) /
+                           ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
 
 ## Calculate the posterior density
 
