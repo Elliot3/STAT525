@@ -100,7 +100,7 @@ Since $\lambda$ will always be between $0$ and $1$ the Posterior Mean will act a
 
 ## Part c
 
-Posterior Density: $\theta|y \sim Beta (y + \alpha, (n - y) + \beta)$
+Posterior Distribution: $\theta|y \sim Beta (y + \alpha, (n - y) + \beta)$
 \newline
 Prior Variance ($\alpha = 1, \beta = 1$): $\frac{1}{12}$
 \newline
@@ -129,6 +129,10 @@ Thus, the Posterior Variance, which we just maximized, is always less than the P
 * $\alpha = 1$
 * $\beta = 10$
 
+Prior Distribution: $\theta \sim Beta(\alpha, \beta)$
+\newline
+Posterior Distribution: $\theta|y \sim Beta (y + \alpha, (n - y) + \beta)$
+\newline
 Prior Variance: $\frac{(1)(10)}{(11)^{2}(12)} = \frac{10}{1452} = 0.0069$
 \newline
 Posterior Variance: $\frac{(2)(10)}{(12)^{2}(13)} = \frac{20}{1872} = 0.0107$
