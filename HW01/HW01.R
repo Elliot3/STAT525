@@ -79,7 +79,8 @@ post_density <- dbeta(x = theta,
 
 ggplot() +
     geom_line(aes(x = theta, y = post_density)) +
-    labs(x = "Theta", y = "Density", title = "Beta Density")
+    labs(x = "Theta", y = "Density", title = "Beta Density") +
+    xlim(c(0.5, 0.75))
 
 
 
@@ -91,35 +92,35 @@ ggplot() +
 
 
 
-## Set the sample size
+## Set mean and variance
 
-n <- 10
-
-## Set the number of yes votes
-
-y <- n * 0.20
+mu <- 0.5
+var <- (1/12)
 
 ## Set post alpha and beta
 
-post_alpha <- y + beta_params[1]
-post_beta <- (n - y) + beta_params[2]
+post_alpha <- y + 1
+post_beta <- (n - y) + 1
 
-## Posterior mean and variance
+## Establish the x-axis values
 
-post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
-post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+theta <- seq(0, 1, length.out = 100)
 
-## Calculate the posterior density
+## Set the beta density
 
-post_density <- dbeta(x = theta,
+beta_density <- dbeta(x = theta,
                       shape1 = post_alpha,
                       shape2 = post_beta)
+
+beta_density <- beta_density[-length(beta_density)]
+theta <- theta[-length(theta)]
 
 ## Build the density plot
 
 ggplot() +
-    geom_line(aes(x = theta, y = post_density)) +
-    labs(x = "Theta", y = "Density", title = "Beta Density")
+    geom_line(aes(x = theta, y = beta_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density") +
+    xlim(c(0.5, 0.75))
 
 
 
@@ -127,36 +128,39 @@ ggplot() +
 
 
 
-## Set the sample size
+## Set mean and variance
 
-n <- 100
+mu <- 0.3
+var <- 0.001
 
-## Set the number of yes votes
+## Estimate the beta parameters
 
-y <- n * 0.95
+beta_params <- est_beta_params(mu, var)
 
 ## Set post alpha and beta
 
 post_alpha <- y + beta_params[1]
 post_beta <- (n - y) + beta_params[2]
 
-## Posterior mean and variance
+## Establish the x-axis values
 
-post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
-post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+theta <- seq(0, 1, length.out = 100)
 
-## Calculate the posterior density
+## Set the beta density
 
-post_density <- dbeta(x = theta,
+beta_density <- dbeta(x = theta,
                       shape1 = post_alpha,
                       shape2 = post_beta)
+
+beta_density <- beta_density[-length(beta_density)]
+theta <- theta[-length(theta)]
 
 ## Build the density plot
 
 ggplot() +
-    geom_line(aes(x = theta, y = post_density)) +
-    labs(x = "Theta", y = "Density", title = "Beta Density")
-
+    geom_line(aes(x = theta, y = beta_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density") +
+    xlim(c(0.5, 0.75))
 
 
 
@@ -164,32 +168,37 @@ ggplot() +
 
 
 
-## Set the sample size
+## Set mean and variance
 
-n <- 500
+mu <- 0.9
+var <- 0.0005
 
-## Set the number of yes votes
+## Estimate the beta parameters
 
-y <- n * 0.5
+beta_params <- est_beta_params(mu, var)
 
 ## Set post alpha and beta
 
 post_alpha <- y + beta_params[1]
 post_beta <- (n - y) + beta_params[2]
 
-## Posterior mean and variance
+## Establish the x-axis values
 
-post_mean <- round(post_alpha / (post_alpha + post_beta), 4)
-post_var <- round(sqrt((post_alpha * post_beta) / ((post_alpha + post_beta)^2 * (post_alpha + post_beta + 1))), 4)
+theta <- seq(0, 1, length.out = 100)
 
-## Calculate the posterior density
+## Set the beta density
 
-post_density <- dbeta(x = theta,
+beta_density <- dbeta(x = theta,
                       shape1 = post_alpha,
                       shape2 = post_beta)
+
+beta_density <- beta_density[-length(beta_density)]
+theta <- theta[-length(theta)]
 
 ## Build the density plot
 
 ggplot() +
-    geom_line(aes(x = theta, y = post_density)) +
-    labs(x = "Theta", y = "Density", title = "Beta Density")
+    geom_line(aes(x = theta, y = beta_density)) +
+    labs(x = "Theta", y = "Density", title = "Beta Density") +
+    xlim(c(0.5, 0.75))
+
