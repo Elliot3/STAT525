@@ -29,6 +29,14 @@ p(y_1, ..., y_n) & = \int p(y_1, ..., y_n|\theta)p(\theta)d(\theta) \\
 \end{aligned}
 \]
 
+Where:
+
+* The first line is the definition of marginal probability
+* The second line is because the $Y_i$'s are conditionally $iid$
+* The third line is because the product does not depend on order
+* The fourth line we are converting back to the form used in the first line
+* Finally, the last line is the definition of marginal probability
+
 # Problem 2
 
 ## Part a
@@ -105,7 +113,7 @@ Now, we can deduce that smaller values of n will maximize this quantity; since $
 Posterior Variance ($n = y = 1$): $\frac{-y^2 +ny + n + 1}{n^3 + 7n^2 + 16n + 12} = \frac{2}{36} = \frac{1}{18}$
 \newline
 \newline
-Thus, the Posterior Variance, which we just minimized, is always less than the Prior Variance of $\frac{1}{12}$.
+Thus, the Posterior Variance, which we just maximized, is always less than the Prior Variance of $\frac{1}{12}$.
 
 ## Part d
 
