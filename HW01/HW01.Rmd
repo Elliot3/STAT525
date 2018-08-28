@@ -133,6 +133,7 @@ Prior Distribution: $\theta \sim Beta(\alpha, \beta)$
 \newline
 Posterior Distribution: $\theta|y \sim Beta (y + \alpha, (n - y) + \beta)$
 \newline
+\newline
 Prior Variance: $\frac{(1)(10)}{(11)^{2}(12)} = \frac{10}{1452} = 0.0069$
 \newline
 Posterior Variance: $\frac{(2)(10)}{(12)^{2}(13)} = \frac{20}{1872} = 0.0107$
