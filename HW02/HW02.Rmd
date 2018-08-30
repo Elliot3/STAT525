@@ -1,0 +1,33 @@
+---
+title: 'Assignment #2'
+author: "Elliot Smith"
+date: "8/30/2018"
+output: pdf_document
+---
+
+# Problem 1
+
+## Part a
+
+Here our goal will be to minimize $a$ to show that $a = E[\theta|y]$ is the unique Bayes estimate of $\theta$:
+
+\[
+\begin{aligned}
+\frac{d}{da}E[L(a|y)] & = \frac{d}{da}{\int}L(\theta, a)p(\theta|y)d\theta \\
+& = \frac{d}{da}{\int}(\theta - a)^2p(\theta|y)d\theta \\
+& = -2{\int}(\theta - a)p(\theta|y)d\theta \\
+& = -2\bigg[{\int}{\theta}p(\theta|y)d\theta - a{\int}p(\theta|y)d\theta\bigg] \\
+& = -2\big[E[\theta|y] - a\big] \\
+\end{aligned}
+\]
+
+$-2\big[E[\theta|y] - a\big] = 0$ when $a = E[\theta|y]$
+\newline
+\newline
+To prove that it is a unique minimizing statistic, we must look at the second derivative:
+\newline
+\newline
+$\frac{d}{da}(-2\big[E[\theta|y] - a\big]) = 2$
+\newline
+\newline
+As $2 > 0$, this shows that it is a unique minimzing statistic.
