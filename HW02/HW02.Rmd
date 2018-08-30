@@ -31,3 +31,36 @@ $\frac{d}{da}(-2\big[E[\theta|y] - a\big]) = 2$
 \newline
 \newline
 As $2 > 0$, this shows that it is a unique minimzing statistic.
+
+## Part b
+
+Here our goal will be to show that for any median value of $a$, the derivative of $L(\theta, a)$ will evaluate to $0$.
+
+\[
+\begin{aligned}
+\frac{d}{da}\big[E[L(a|y)]\big] & = \frac{d}{da}\bigg[{\int}_{-\infty}^a (a - \theta)p(\theta|y)d\theta + {\int}_{a}^\infty (\theta - a)p(\theta|y)d\theta\bigg] \\
+& = {\int}_{-\infty}^a \frac{d}{da}(a - \theta)p(\theta|y)d\theta + {\int}_{a}^\infty \frac{d}{da}(\theta - a)p(\theta|y)d\theta \\
+& = {\int}_{-\infty}^a p(\theta|y)d\theta + {\int}_{a}^\infty(-1)p(\theta|y)d\theta \\
+& = {\int}_{-\infty}^a p(\theta|y)d\theta - {\int}_{a}^\infty p(\theta|y)d\theta \\
+& = \frac{1}{2} - \frac{1}{2} \\
+& = 0
+\end{aligned}
+\]
+
+As a result, it has been shown that any posterior median of $\theta$ is a Bayes estimate of $\theta$.
+
+## Part c
+
+
+
+
+
+
+
+
+
+
+
+
+
+
