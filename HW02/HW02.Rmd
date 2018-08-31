@@ -78,10 +78,29 @@ Now setting ${\int_{-\infty}^a}p(\theta|y)d\theta = \frac{k_0}{k_0 + k_1}$ we ge
 \newline
 Taking the second derivative we again get a positive number, thus again indicating that it is a minimizing statistic.
 
+# Problem 2
 
+n = 20
+\newline
+Sampling Distribution: $y|\theta \sim Binomial(n = 20, \theta)$
+\newline
+Prior Distribution: $\theta \sim Beta(\alpha = 2, \beta = 20)$
+\newline
+Posterior Distribution:
+\newline
+\[
+\begin{aligned}
+p(\theta|y) & = \binom{n}{y}\theta^y(1 - \theta)^{n - y} \times \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha - 1}(1 - \theta)^{\beta - 1} \\
+& = \binom{n}{y}\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{y + \alpha - 1}(1 - \theta)^{n - y + \beta - 1} \\
+& \propto Beta(y + \alpha, (n - y) + \beta) \\
+& = Beta(y + 2, (20 - y) + 20)
+\end{aligned}
+\]
 
+## Part i
 
-
+$y = 0$
+\newline
 
 
 
