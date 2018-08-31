@@ -51,7 +51,32 @@ As a result, it has been shown that any posterior median of $\theta$ is a Bayes 
 
 ## Part c
 
+Here our goal will be to show that for any value of $a$, the derivative of $L(\theta, a)$ will evaluate to $0$ where $k_0$ and $k_1$ are nonnegative numbers.
 
+\[
+\begin{aligned}
+\frac{d}{da}\big[E[L(a|y)]\big] & = \frac{d}{da}\bigg[{\int}_{-\infty}^a k_1(a - \theta)p(\theta|y)d\theta + {\int}_{a}^\infty k_0(\theta - a)p(\theta|y)d\theta\bigg] \\
+& = {\int}_{-\infty}^a \frac{d}{da}k_1(a - \theta)p(\theta|y)d\theta + {\int}_{a}^\infty \frac{d}{da}k_0(\theta - a)p(\theta|y)d\theta \\
+& = {\int}_{-\infty}^a {k_1}p(\theta|y)d\theta + {\int}_{a}^\infty(-k_0)p(\theta|y)d\theta \\
+& = {\int}_{-\infty}^a {k_1}p(\theta|y)d\theta - {\int}_{a}^\infty {k_0}p(\theta|y)d\theta \\
+& = k_1 {\int}_{-\infty}^a p(\theta|y)d\theta - k_0 {\int}_{a}^\infty p(\theta|y)d\theta \\
+\end{aligned}
+\]
+
+Noting that: $k_0 \int_a^\infty p(\theta|y)d\theta = k_0 - k_0{\int_{-\infty}^a} p(\theta|y)d\theta$
+
+\[
+\begin{aligned}
+k_1 {\int}_{-\infty}^a p(\theta|y)d\theta - k_0 {\int}_{a}^\infty p(\theta|y)d\theta & = k_1{\int_{-\infty}^a}p(\theta|y)d\theta - \bigg[k_0 - k_0{\int_{-\infty}^a} p(\theta|y)d\theta{\bigg]} \\
+& = k_1{\int_{-\infty}^a}p(\theta|y)d\theta + k_0{\int_{-\infty}^a} p(\theta|y)d\theta - k_0 \\
+& = (k_1 + k_0){\int_{-\infty}^a}p(\theta|y)d\theta - k_0 \\
+\end{aligned}
+\]
+
+Now setting ${\int_{-\infty}^a}p(\theta|y)d\theta = \frac{k_0}{k_0 + k_1}$ we get our result that any quantile is a Bayes estimate of $\theta$.
+\newline
+\newline
+Taking the second derivative we again get a positive number, thus again indicating that it is a minimizing statistic.
 
 
 
