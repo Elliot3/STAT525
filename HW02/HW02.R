@@ -116,9 +116,35 @@ gamma_params <- find_gamma_params(samp_mean, samp_var)
 
 
 
+## Set theta values
 
+theta <- seq(from = 1, to = 150, by = 1)
 
+## Set the sample values
 
+y_1 <- 217
+y_2 <- 66
+n_1 <- 111
+n_2 <- 44
+lambda_1 <- 217 / 111
+lambda_2 <- 66 / 44
+
+## Generate samples from the posterior distributions
+
+post_dens_y1 <- dgamma(x = theta, shape = y_1 + gamma_params[1], rate = gamma_params[2] + 1)
+post_dens_y2 <- dgamma(x = theta, shape = y_2 + gamma_params[1], rate = gamma_params[2] + 1)
+prior_dens <- dgamma(x = theta, shape = gamma_params[1], rate = gamma_params[2])
+
+## Generate the plot
+
+ggplot() +
+    geom_line(aes(x = theta, y = post_dens_y1), col = "blue") +
+    geom_line(aes(x = theta, y = post_dens_y2), col = "green") +
+    geom_line(aes(x = theta, y = prior_dens), col = "orange") +
+    geom_vline(aes(xintercept = lambda_1), col = "red") +
+    geom_vline(aes(xintercept = lambda_2), col = "purple") +
+    labs(x = "Theta", y = "Density", title = "Gamma Density",
+         subtitle = "Blue - y1 Posterior   /   Green - y2 Posterior   /   Red - y1 MLE   /   Purple - y2 MLE")
 
 
 
