@@ -201,7 +201,46 @@ cat("HPD Interval: ", "(", bayes_int_odds[1], ",", bayes_int_odds[2], ")")
 
 ```
 
+# Problem 3
 
+## Part i
+
+My methodology for selecting my $\alpha$ and $\beta$ for my $\theta_1, \theta_2 \sim Gamma(\alpha, \beta)$ distribution is as follows. First, I estimated my $\lambda$ parameter from my Poisson distribution by $\Sigma_{i=1}^n \frac{y_i}{n}$. Then, I generated a sample of 1000 data points from a Poisson distribution with my esimated $\lambda$ parameter. I calculated the mean and variance of this sample, and using these values, ascertained the values of $\alpha$ and $\beta$ of a Gamma distribution by using the formula for mean ($\frac{\alpha}{\beta}$) and variance ($\frac{\alpha}{\beta^2}$).
+
+```{r, echo = FALSE}
+
+## Get the poisson parameter
+
+lambda <- (217 + 66) / 155
+
+## Generate poisson data with the parameter
+
+pois_data <- rpois(1000, lambda = lambda)
+
+## Sample mean and variance
+
+samp_mean <- mean(pois_data)
+samp_var <- var(pois_data)
+
+## Compute the gamma parameters
+
+find_gamma_params <- function(mu, sigma_sq) {
+    
+    beta <- mu / sigma_sq
+    alpha <- beta * mu
+    return(c(alpha, beta))
+    
+}
+
+gamma_params <- find_gamma_params(samp_mean, samp_var)
+
+cat("Gamma Parameters")
+cat("Alpha Parameter: ", round(gamma_params[1], 4))
+cat("Beta Parameter: ", round(gamma_params[2], 4))
+
+```
+
+## Part ii
 
 
 

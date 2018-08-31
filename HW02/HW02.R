@@ -81,5 +81,47 @@ bayes_int_odds <- as.vector(HPDinterval(as.mcmc(odds_samp), prob = 0.95)[1, 1:2]
 
 
 
+### Part i ###
+
+
+
+## Get the poisson parameter
+
+lambda <- (217 + 66) / 155
+
+## Generate poisson data with the parameter
+
+pois_data <- rpois(1000, lambda = lambda)
+
+## Sample mean and variance
+
+samp_mean <- mean(pois_data)
+samp_var <- var(pois_data)
+
+## Compute the gamma parameters
+
+find_gamma_params <- function(mu, sigma_sq) {
+    
+    beta <- mu / sigma_sq
+    alpha <- beta * mu
+    return(c(alpha, beta))
+    
+}
+
+gamma_params <- find_gamma_params(samp_mean, samp_var)
+
+
+
+### Part ii ###
+
+
+
+
+
+
+
+
+
+
 
 
