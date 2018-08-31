@@ -50,7 +50,7 @@ post_beta_rand <- rbeta(n = 10000, shape1 = y + alpha, shape2 = (n - y) + beta)
 
 ## Compute the HPD interval
 
-bayes_int <- HPDinterval(as.mcmc(post_beta_rand), prob = 0.95)[1, 1:2]
+bayes_int <- as.vector(HPDinterval(as.mcmc(post_beta_rand), prob = 0.95)[1, 1:2])
 
 ## Calculate the MLE
 
@@ -73,7 +73,7 @@ odds_samp <- log(post_beta_rand / (1 - post_beta_rand))
 
 ## Compute the HPS interval
 
-bayes_int_odds <- HPDinterval(as.mcmc(odds_samp), prob = 0.95)[1, 1:2]
+bayes_int_odds <- as.vector(HPDinterval(as.mcmc(odds_samp), prob = 0.95)[1, 1:2])
 
 
 
