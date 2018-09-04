@@ -209,6 +209,8 @@ cat("HPD Interval: ", "(", bayes_int_odds[1], ",", bayes_int_odds[2], ")")
 
 ```
 
+\newpage
+
 # Problem 3
 
 ## Part i
@@ -335,7 +337,7 @@ cat("Posterior Credible Interval, theta_2: ", "(", hpd_int_y2[1], ",", hpd_int_y
 
 ```
 
-As we can see from our results, the two intervals do overlap!
+As we can see from our results, the two intervals do overlap! This would lead us to believe that it is not a forgone conclusion that a mother from group $y_1$ would have more children than a mother from group $y_2$; though our intervals imply than we can be more confident that a mother in group $y_1$ will have more children on average.
 
 ## Part iv
 
@@ -359,7 +361,7 @@ cat("Posterior Credible Interval, theta_1 - theta_2: ", "(", diff_int[1], ",", d
 
 ```
 
-As we can see from our results, the interval of $\theta_1 - \theta_2$ does include zero!
+As we can see from our results, the interval of $\theta_1 - \theta_2$ does include zero! This reinforces our previous point, that a randomly chosen mother from $y_2$ may have more children than a randomly chosen mother from $y_1$, though it is significantly less likely than the other way around.
 
 ## Part v
 
@@ -371,7 +373,7 @@ cat("Posterior Probability: ", post_prob)
 
 ```
 
-This provided value dictates the likelihood that a value falls within a particular range in the distribution. In this case, the provided value states how likely that the true answer lies in the range, which in this case, is greater than zero.
+This provided value dictates the likelihood that a value falls within a particular range in the distribution. In this case, the provided value states how likely that the true answer lies in the range, which in this case, is greater than zero. Thus, in this case of birth rates, we can be very confident that an individual mother from $y_1$ will have more children than a mother from $y_2$, however, it is still possible to randomly choose a case where a mother from $y_2$ would have more children than a mother randomly chosen from $y_1$.
 \newline
 \newline
 The difference between the classical Frequensist approach of a hypothesis test and our Bayesian approach is that the Frequentists believe that our statistic in question is an unknown, but fixed, number, whereas Bayesians believes that it is an unknown distribution. As a result, the Bayesian approach allows us to say whether or not a true answer lies in a given range, while the Frequentist approach relies heavily on weakly defined constraints ("data more extreme") to determine the probability that we are making an error when accepting our Null Hypothesis as true (such as whether a parameter equals a pre-defined value).
