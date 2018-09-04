@@ -32,11 +32,12 @@ theta <- seq(from = 0, to = 1, length.out = 1000)
 post_beta_dens <- dbeta(x = theta, shape1 = y + alpha, shape2 = (n - y) + beta)
 
 ggplot() +
-    geom_line(aes(x = theta, y = post_beta_dens), col = "blue") +
-    geom_line(aes(x = theta, y = dbeta(x = theta, shape1 = alpha, shape2 = beta)), col = "green") +
-    geom_vline(aes(xintercept = (y / n)), col = "red") +
+    geom_line(aes(x = theta, y = post_beta_dens), linetype = 1) +
+    geom_line(aes(x = theta, y = dbeta(x = theta, shape1 = alpha, shape2 = beta)), linetype = 2) +
+    geom_vline(aes(xintercept = (y / n)), linetype = 3) +
     labs(x = "Theta", y = "Density", title = "Beta Density",
-         subtitle = "Blue - Posterior Distribution   /   Green - Prior Distribution   /   Red - MLE")
+         subtitle = "Smooth Line - Posterior Distribution   /   Dashed Line - Prior Distribution   /   
+         Dotted Line - MLE")
 
 
 
@@ -130,13 +131,15 @@ prior_dens <- dgamma(x = theta, shape = gamma_params[1], rate = gamma_params[2])
 ## Generate the plot
 
 ggplot() +
-    geom_line(aes(x = theta, y = post_dens_y1), col = "blue") +
-    geom_line(aes(x = theta, y = post_dens_y2), col = "green") +
-    geom_line(aes(x = theta, y = prior_dens), col = "orange") +
-    geom_vline(aes(xintercept = lambda_1), col = "red") +
-    geom_vline(aes(xintercept = lambda_2), col = "purple") +
+    geom_line(aes(x = theta, y = post_dens_y1), linetype = 1) +
+    geom_line(aes(x = theta, y = post_dens_y2), linetype = 2) +
+    geom_line(aes(x = theta, y = prior_dens), linetype = 3) +
+    geom_vline(aes(xintercept = lambda_1), linetype = 4) +
+    geom_vline(aes(xintercept = lambda_2), linetype = 6) +
     labs(x = "Theta", y = "Density", title = "Gamma Density",
-         subtitle = "Blue - y_1 Posterior   /   Green - y_2 Posterior   /   Red - y_1 MLE   /   Purple - y_2 MLE   /   Orange - Prior")
+         subtitle = "Smooth Line - y_1 Posterior   /   Dashed Line - y_2 Posterior   /   
+         Dotted/Short Dash - y_1 MLE   /   Dotted/Long Dash - y_2 MLE   /   
+         Dotted Line - Prior")
 
 
 
@@ -179,7 +182,11 @@ cat("Posterior Credible Interval, theta_1 - theta_2: ", "(", diff_int[1], ",", d
 
 
 
+### Part v ###
 
+
+
+post_prob <- mean(post_diff_gamma > 0)
 
 
 
