@@ -187,13 +187,3 @@ cat("Posterior Credible Interval, theta_1 - theta_2: ", "(", diff_int[1], ",", d
 
 
 post_prob <- mean(post_diff_gamma > 0)
-
-
-
-
-
-
-
-
-
-
