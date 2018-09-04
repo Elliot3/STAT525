@@ -85,18 +85,10 @@ bayes_int_odds <- as.vector(HPDinterval(as.mcmc(odds_samp), prob = 0.95)[1, 1:2]
 
 
 
-## Get the poisson parameter
-
-lambda <- (217 + 66) / 155
-
-## Generate poisson data with the parameter
-
-pois_data <- rpois(1000, lambda = lambda)
-
 ## Sample mean and variance
 
-samp_mean <- mean(pois_data)
-samp_var <- var(pois_data)
+samp_mean <- ((1 * 21) + (2 * 43) + (3 * 23) + (4 * 13)) / (21 + 43 + 23 + 13)
+samp_var <- var(c(rep(1, 21), rep(2, 43), rep(3, 23), rep(4, 13)))
 
 ## Compute the gamma parameters
 
@@ -108,7 +100,7 @@ find_gamma_params <- function(mu, sigma_sq) {
     
 }
 
-gamma_params <- find_gamma_params(samp_mean, samp_var)
+gamma_params <- round(find_gamma_params(samp_mean, samp_var), 4)
 
 
 
@@ -118,7 +110,7 @@ gamma_params <- find_gamma_params(samp_mean, samp_var)
 
 ## Set theta values
 
-theta <- seq(from = 1, to = 150, by = 1)
+theta <- seq(from = 1, to = 5, by = 0.01)
 
 ## Set the sample values
 
@@ -131,8 +123,8 @@ lambda_2 <- 66 / 44
 
 ## Generate samples from the posterior distributions
 
-post_dens_y1 <- dgamma(x = theta, shape = y_1 + gamma_params[1], rate = gamma_params[2] + 1)
-post_dens_y2 <- dgamma(x = theta, shape = y_2 + gamma_params[1], rate = gamma_params[2] + 1)
+post_dens_y1 <- dgamma(x = theta, shape = y_1 + gamma_params[1], rate = gamma_params[2] + n_1)
+post_dens_y2 <- dgamma(x = theta, shape = y_2 + gamma_params[1], rate = gamma_params[2] + n_2)
 prior_dens <- dgamma(x = theta, shape = gamma_params[1], rate = gamma_params[2])
 
 ## Generate the plot
@@ -144,7 +136,54 @@ ggplot() +
     geom_vline(aes(xintercept = lambda_1), col = "red") +
     geom_vline(aes(xintercept = lambda_2), col = "purple") +
     labs(x = "Theta", y = "Density", title = "Gamma Density",
-         subtitle = "Blue - y1 Posterior   /   Green - y2 Posterior   /   Red - y1 MLE   /   Purple - y2 MLE")
+         subtitle = "Blue - y_1 Posterior   /   Green - y_2 Posterior   /   Red - y_1 MLE   /   Purple - y_2 MLE   /   Orange - Prior")
+
+
+
+### Part iii ###
+
+
+
+## Draw a sample from each posterior distribution
+
+post_gamma_y1 <- rgamma(n = 10000, shape = y_1 + gamma_params[1], rate = n_1 + gamma_params[2])
+post_gamma_y2 <- rgamma(n = 10000, shape = y_2 + gamma_params[1], rate = n_2 + gamma_params[2])
+
+## Compute the HPD intervals
+
+hpd_int_y1 <- as.vector(HPDinterval(as.mcmc(post_gamma_y1), prob = 0.95)[1, 1:2])
+hpd_int_y2 <- as.vector(HPDinterval(as.mcmc(post_gamma_y2), prob = 0.95)[1, 1:2])
+
+## Output the results
+
+cat("Posterior Credible Interval, theta_1: ", "(", hpd_int_y1[1], ",", hpd_int_y1[2], ")")
+cat("Posterior Credible Interval, theta_2: ", "(", hpd_int_y2[1], ",", hpd_int_y2[2], ")")
+
+
+
+### Part iv ###
+
+
+
+## Get the difference of our random samples
+
+post_diff_gamma <- post_gamma_y1 - post_gamma_y2
+
+## Compute the HPD interval
+
+diff_int <- as.vector(HPDinterval(as.mcmc(post_diff_gamma), prob = 0.95)[1, 1:2])
+
+## Output the results
+
+cat("Posterior Credible Interval, theta_1 - theta_2: ", "(", diff_int[1], ",", diff_int[2], ")")
+
+
+
+
+
+
+
+
 
 
 
