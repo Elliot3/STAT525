@@ -48,6 +48,9 @@ Here our goal will be to show that for any median value of $a$, the derivative o
 \]
 
 As a result, it has been shown that any posterior median of $\theta$ is a Bayes estimate of $\theta$.
+\newline
+\newline
+Taking the second derivative we again get a positive number, thus again indicating that it is a minimizing statistic.
 
 ## Part c
 
@@ -147,6 +150,8 @@ ggplot() +
 
 ```
 
+From this graph we can see that while the MLE, $\hat{y} = \frac{y}{n}$ is not properly represented the true distribution due to the fact that there were no positive cases in this hospital, the posterior distribution, via the affect of the prior distribution, is impacting our results enough to render a more accurate result.
+
 ## Part ii
 
 ```{r, echo = FALSE}
@@ -178,6 +183,8 @@ cat("HPD Interval: ", "(", bayes_int[1], ",", bayes_int[2], ")")
 cat("Frequentist Interval: ", "(", freq_int[1], ",", freq_int[2], ")")
 
 ```
+
+From this result, we can see that the Frequestist result compares poorly ($(0, 0)$ is not really an interval at all) against the Bayesian posterior credible interval of $\theta$. Again, the frequentist approach for this hospital is being adversely affected by the fact that there are no positive cases, and as such, we do not get a good representation of the true distribution of positive cases. Whereas the Bayesian approach factors in our prior beliefs on the number of positive cases, thus allowing us to interpret the results for this case.
 
 ## Part iii
 
