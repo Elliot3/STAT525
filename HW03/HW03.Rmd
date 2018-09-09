@@ -47,7 +47,7 @@ From this result, we can see the following result:
 \begin{aligned}
 \theta|y & \sim N\bigg(\frac{\mu_\theta\sigma^2_y + \sum_{i=1}^n \sigma_\theta^2{y_i}}{\sigma^2_y + n\sigma^2_\theta},
 \frac{\sigma^2_y\sigma^2_\theta}{\sigma^2_y + n\sigma^2_\theta}\bigg) \\
-& \sim N\bigg(\frac{\mu_\theta\sigma^{-2}_\theta + \sum_{y=1}^n {y_i}\sigma_y^{-2}}{\sigma^{-2}_\theta + n\sigma^{-2}_y},
+& \sim N\bigg(\frac{\mu_\theta\sigma^{-2}_\theta + {\sigma_y^{-2}}\sum_{i=1}^n {y_i}}{\sigma^{-2}_\theta + n\sigma^{-2}_y},
 \frac{1}{\sigma^{-2}_\theta + n\sigma^{-2}_y}\bigg) \\
 & \sim N(Q^{-1}_\theta{\ell_\theta}, Q^{-1}_\theta)
 \end{aligned}
