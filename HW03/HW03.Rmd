@@ -1,0 +1,65 @@
+---
+title: 'Assignment #3'
+author: "Elliot Smith"
+date: "9/9/2018"
+output: pdf_document
+---
+
+# Problem 1
+
+Sampling Distribution: $y_1, ..., y_n|\theta \overset{\text{iid}}{\sim} N(\theta, \sigma^2_y)$
+\newline
+Prior Distribution: $\theta \sim N(\mu_\theta, \sigma^2_\theta)$
+\newline
+Posterior Distribution: $\theta|y \sim N(Q^{-1}_\theta{\ell_\theta}, Q^{-1}_\theta)$
+\newline
+\newline
+Posterior Distribution:
+\newline
+\[
+\begin{aligned}
+p(\theta|y) & \propto p(y|\theta)p(\theta) \\
+& = \Bigg[\frac{1}{\sqrt{2\pi\sigma^2_y}}\Bigg]^n{exp\Bigg(-\frac{1}{2\sigma^2_y}\sum_{i=1}^n(y_i - \theta)^2\Bigg)}
+\times \frac{1}{\sqrt{2\pi\sigma^2_\theta}}{exp\Bigg(-\frac{1}{2\sigma^2_\theta}(\theta - \mu_\theta)^2\Bigg)} \\
+& \propto {exp\Bigg(-\frac{1}{2\sigma^2_\theta}(\theta - \mu_\theta)^2\Bigg)}
+\times {exp\Bigg(-\frac{1}{2\sigma^2_y}\sum_{i=1}^n(y_i - \theta)^2\Bigg)} \\
+& = exp\Bigg(-\frac{\theta^2 - 2\theta{\mu_\theta} + \mu_\theta^2}{2\sigma^2_\theta}\Bigg)
+\times exp\Bigg(-\frac{\sum_{i=1}^n (y_i^2 - 2\theta{y_i} + \theta^2)}{2\sigma^2_y}\Bigg) \\
+& = exp\Bigg(\frac{-\theta^2 + 2\theta{\mu_\theta} - \mu_\theta^2}{2\sigma^2_\theta}
+- \frac{\sum_{i=1}^n (y_i^2 - 2\theta{y_i} + \theta^2)}{2\sigma^2_y}\Bigg) \\
+& = exp\Bigg(\frac{\sigma^2_y[-\theta^2 + 2\theta{\mu_\theta} - \mu_\theta^2] - \sigma^2_\theta[\sum_{i=1}^n (y_i^2 - 2\theta{y_i} + \theta^2)]}
+{2\sigma^2_\theta{\sigma^2_y}}\Bigg) \\
+& = exp\Bigg(\frac{-\theta^2(\sigma^2_y + n \sigma^2_\theta) + 2\theta(\mu_\theta\sigma^2_y + \sigma^2_\theta{y_1} + ... + \sigma^2_\theta{y_n})
+- (\mu_\theta^2{\sigma^2_y + \sigma^2_\theta{y_1^2}} + ... + \sigma^2_\theta{y_n^2})}{2\sigma^2_\theta{\sigma^2_y}}\Bigg) \\
+& = exp\Bigg(\frac{-\theta^2 + 2\theta\frac{\mu_\theta{\sigma^2_y} + \sum_{i=1}^n \sigma^2_\theta{y_i}}{\sigma^2_y + n\sigma^2_\theta} - 
+\bigg(\frac{\mu_\theta\sigma^2_y + \sum_{i=1}^n \sigma^2_\theta{y_i}}{\sigma^2_y + n\sigma^2_\theta}\bigg)}{2\frac{\sigma^2_\theta{\sigma^2_y}}{\sigma^2_y + n\sigma^2_\theta}}\Bigg)
+\times exp\Bigg(-\frac{\mu_\theta^2\sigma_y^2 + \sum_{i=1}^n \sigma^2_\theta{y_i^2}}{2\sigma^2_\theta\sigma^2_y}\Bigg) \\
+& = exp\Bigg(-\frac{\bigg(\theta - \frac{\mu_\theta\sigma^2_y + \sum_{i=1}^n \sigma^2_\theta{y_i}}{\sigma^2_y + n\sigma^2_\theta}\bigg)^2}
+{2\frac{\sigma^2_\theta\sigma^2_y}{\sigma^2_y + n\sigma^2_\theta}}\Bigg) \\
+\end{aligned}
+\]
+
+\newpage
+
+From this result, we can see the following result:
+\newline
+\[
+\begin{aligned}
+\theta|y & \sim N\bigg(\frac{\mu_\theta\sigma^2_y + \sum_{i=1}^n \sigma_\theta^2{y_i}}{\sigma^2_y + n\sigma^2_\theta},
+\frac{\sigma^2_y\sigma^2_\theta}{\sigma^2_y + n\sigma^2_\theta}\bigg) \\
+& \sim N\bigg(\frac{\mu_\theta\sigma^{-2}_\theta + \sum_{y=1}^n {y_i}\sigma_y^{-2}}{\sigma^{-2}_\theta + n\sigma^{-2}_y},
+\frac{1}{\sigma^{-2}_\theta + n\sigma^{-2}_y}\bigg) \\
+& \sim N(Q^{-1}_\theta{\ell_\theta}, Q^{-1}_\theta)
+\end{aligned}
+\]
+\newline
+Where the following holds:
+\newline
+\newline
+$Q_\theta = n\sigma^{-2}_y + \sigma^{-2}_\theta$
+\newline
+$\ell_\theta = \sigma^{-2}_y \sum_{i=1}^n y_i + \sigma^{-2}_\theta{\mu_\theta}$
+
+# Problem 2
+
+# Problem 3
