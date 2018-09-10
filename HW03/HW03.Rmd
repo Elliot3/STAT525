@@ -63,3 +63,36 @@ $\ell_\theta = \sigma^{-2}_y \sum_{i=1}^n y_i + \sigma^{-2}_\theta{\mu_\theta}$
 # Problem 2
 
 # Problem 3
+
+Sampling Distribution: $p(y|\theta) = \frac{\theta^ye^-\theta}{y!}$
+\newline
+Domain: $\theta > 0$
+\newline
+\newline
+\[
+\begin{aligned}
+p(y|\theta) & = \prod_{i=1}^{n}\frac{\theta^{y_i}e^-{\theta}}{{y_i}!} \\
+& = \theta^{{\sum_{i=1}^n}{y_i}}e^{-n\theta} \times \prod_{i=1}^n \frac{1}{{y_i}!} \\
+log[p(y|\theta)] & = log\bigg[\theta^{{\sum_{i=1}^n}{y_i}}e^{-n\theta} \times \prod_{i=1}^n \frac{1}{{y_i}!}\bigg] \\
+& = \bigg[{\sum_{i=1}^n}{y_i}\bigg]log(\theta) - n\theta - log\bigg[\sum_{i=1}^n{y_i}!\bigg] \\
+\frac{d}{d\theta}log[p(y|\theta)] & = \frac{d}{d\theta}\Bigg[\bigg[{\sum_{i=1}^n}{y_i}\bigg]log(\theta)\Bigg]  - \frac{d}{d\theta}({n\theta}) + 0\\
+& = \bigg[\sum_{i=1}^n{y_i}\bigg]{\frac{1}{\theta}} - n \\
+\frac{d^2}{d\theta^2}log[p(y|\theta)] & = \bigg[\sum_{i=1}^n\frac{d}{d\theta} \theta^{-1}\bigg] + 0 \\
+& = \frac{-\sum_{i=1}^n{y_i}}{\theta^2} \\
+E\bigg[\frac{d^2log[p(y|\theta)]}{d\theta^2}\bigg|\theta\bigg] & = \frac{-n\theta}{\theta^2} \\
+& = \frac{-n}{\theta} \\
+\sqrt{-E\bigg[\frac{d^2log[p(y|\theta)]}{d\theta^2}\bigg|\theta\bigg]} & = \sqrt{\frac{n}{\theta}} \\
+& \propto \theta^{-\frac{1}{2}} \\
+& \sim Gamma\bigg(\alpha = \frac{1}{2}, \beta = 0\bigg)
+\end{aligned}
+\]
+
+
+
+
+
+
+
+
+
+
