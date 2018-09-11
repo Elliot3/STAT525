@@ -62,6 +62,39 @@ $\ell_\theta = \sigma^{-2}_y \sum_{i=1}^n y_i + \sigma^{-2}_\theta{\mu_\theta}$
 
 # Problem 2
 
+## Part i
+
+Posterior Distribution:
+\newline
+\[
+\begin{aligned}
+p(\theta|y, \tau_y) & = \frac{1}{\sqrt{2\pi{\sigma^2_y}}}exp\bigg[-\frac{1}{2\sigma^2_y}\sum_{i=1}^n (y_i - \theta{x_i})^2\bigg] \\
+& \propto exp\bigg[-\frac{1}{2\sigma^2_y}\sum_{i=1}^n (y_i - \theta{x_i})^2\bigg] \\
+& = exp\Bigg[-\frac{1}{2}\bigg(\frac{1}{\sigma^2_y}\sum_{i=1}^n (y_i^2 -2\theta{x_i}{y_i} + \theta^2{x_i^2}\bigg)\Bigg] \\
+& = exp\Bigg[-\frac{1}{2}\bigg(\frac{1}{\sigma^2_y}\bigg[\sum_{i=1}^n y_i^2 - \sum_{n=1}^n 2\theta{x_i}{y_i} + \sum_{i=1}^n \theta^2{x_i^2}\bigg]\bigg)\Bigg] \\
+& = exp\Bigg[-\frac{1}{2}\bigg(\frac{1}{\sigma^2_y}\bigg[\sum_{i=1}^n y_i^2 - {2\theta}\sum_{n=1}^n {x_i}{y_i} + {\theta^2} \sum_{i=1}^n {x_i^2}\bigg]\bigg)\Bigg] \\
+& = exp\Bigg[-\frac{1}{2}\bigg(\sigma^{-2}_y\sum_{i=1}^n y_i^2 - {2\theta}\sigma^{-2}_y\sum_{n=1}^n {x_i}{y_i} + {\theta^2}\sigma^{-2}_y \sum_{i=1}^n {x_i^2}\bigg)\Bigg] \\
+& \propto exp\Bigg[-\frac{1}{2}\bigg({\theta^2}\sigma^{-2}_y \sum_{i=1}^n {x_i^2} - {2\theta}\sigma^{-2}_y\sum_{n=1}^n {x_i}{y_i}\bigg)\Bigg] \\
+\end{aligned}
+\]
+\newline
+Now, given the formula: $p(\theta|y) \propto exp\bigg[-\frac{1}{2}\bigg(Q_\theta{\theta^2} - 2\ell_\theta{\theta}\bigg)\bigg]$
+\newline
+\newline
+We get the results that:
+\newline
+\newline
+$Q_\theta = \sigma^{-2}_y \sum_{i=1}^n {x_i^2}$
+\newline
+$\ell_\theta = \sigma^{-2}_y\sum_{n=1}^n {x_i}{y_i}$
+\newline
+\[
+\begin{aligned}
+p(\theta|y, \tau_y) & \sim N(Q_\theta^{-1}\ell_\theta, Q_\theta^{-1}) \\
+& \sim N\bigg(\big(\sigma^{-2}_y \sum_{i=1}^n {x_i^2}\big)^{-1} \times \big(\sigma^{-2}_y\sum_{n=1}^n {x_i}{y_i}\big)^{-1}, \big(\sigma^{-2}_y \sum_{i=1}^n {x_i^2}\big)^{-1} \bigg)
+\end{aligned}
+\]
+
 # Problem 3
 
 Sampling Distribution: $p(y|\theta) = \frac{\theta^ye^-\theta}{y!}$
