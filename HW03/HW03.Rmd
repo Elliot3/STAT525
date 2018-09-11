@@ -118,10 +118,12 @@ p(\tau_t|y) & = \int_\theta p(\tau_y, \theta|y)p(\theta)d{\theta} \\
 exp\Bigg[-\frac{1}{2}\bigg(\theta^2{\sigma_y^{-2}}\sum_{i=1}^n x_i^2 - 2\theta{\sigma_y^{-2}}\sum_{i=1}^n {x_i}{y_i}\bigg)\Bigg]d\theta \\
 & = \int_\theta \theta^{\alpha-1} \times
 exp\Bigg[-\frac{1}{2}\bigg(\theta^2{\sigma_y^{-2}}\sum_{i=1}^n x_i^2 - 2\theta{\sigma_y^{-2}}\sum_{i=1}^n {x_i}{y_i}\bigg) - {\beta{\theta}}\Bigg]d\theta \\
+& = \int_\theta \theta^{\alpha - 1} \times
+exp\Bigg[-\bigg(\frac{1}{2}\theta^2\sigma_y^{-2}\sum_{i=1}^n{x_i^2} - \theta\sigma_y^{-2}\sum_{i=1}^n {x_i}{y_i + \beta\bigg)\theta}\Bigg]d\theta \\
 \end{aligned}
 \]
 \newline
-I could not get passed this point as I was unable to get this quantity into the form required for it to represent a Gamma distribution. As you can see, I understand the general concept, but I was unable to get past this point in this problem.
+I could not get passed this point as I was unable to get this quantity into the form required for it to represent a Gamma distribution. As you can see, I understand the general concept, but I was unable to get past this point in this problem. I have it in the Gamma form (with $\beta$ being equal to term in the parentheses), but am unsure how to proceed.
 
 ## Part iii
 
