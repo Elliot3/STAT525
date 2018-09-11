@@ -101,6 +101,10 @@ Prior Distribution: $\tau_y \sim Gamma(\alpha, \beta)$
 \newline
 Posterior Distribution: $p(\tau_y|y) \propto p(y|\tau_y)p(\tau_y)$
 
+## Part iii
+
+## Part iv
+
 # Problem 3
 
 Sampling Distribution: $p(y|\theta) = \frac{\theta^ye^-\theta}{y!}$
