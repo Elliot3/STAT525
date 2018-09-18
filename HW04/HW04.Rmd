@@ -1,0 +1,42 @@
+---
+title: 'Assignment #4'
+author: "Elliot Smith"
+date: "9/17/2018"
+output: pdf_document
+---
+
+# Problem 1
+
+# Problem 2
+
+# Problem 3
+
+Solving for $a$ in equation (b) yields:
+
+\[
+\begin{aligned}
+La & = \ell_\theta \\
+a & = \frac{\ell_\theta}{L}
+\end{aligned}
+\]
+
+Plugging in our result for $a$ into equation (c) yields:
+
+\[
+\begin{aligned}
+L^T{\theta^*} & = a + e \\
+& = \frac{\ell_\theta}{L} + e \\
+LL^T{}\theta^* & = \ell_\theta + Le \\
+Q_\theta{\theta^*} & = \ell_\theta + Le \\
+\theta^* & = \frac{\ell_\theta + Le}{Q_\theta} \\
+& = {Q_\theta^{-1}}(\ell_\theta + Le) \\
+& = {Q_\theta^{-1}}\ell_\theta + {Q_\theta^{-1}}Le \\
+& = {Q_\theta^{-1}}\ell_\theta + N\big[0, (Q_\theta^{-1}L)^TI_d(Q_\theta^{-1}L)\big] \\
+& = {Q_\theta^{-1}}\ell_\theta + N\big[0, L^T{Q_\theta^{-1}}^T{Q_\theta^{-1}}L\big] \\
+& = {Q_\theta^{-1}}\ell_\theta + N\big[0, \frac{1}{Q_\theta}\big] \\
+& = {Q_\theta^{-1}}\ell_\theta + N\big[0, Q_\theta^{-1}\big] \\
+& \sim N({Q_\theta^{-1}}\ell_\theta, Q_\theta^{-1})
+\end{aligned}
+\]
+
+Thus we see that $\theta^* \sim N({Q_\theta^{-1}}\ell_\theta, Q_\theta^{-1})$.
