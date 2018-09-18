@@ -9,6 +9,189 @@ output: pdf_document
 
 # Problem 2
 
+## Part i
+
+Prior Distribution:
+\newline
+\[
+\begin{aligned}
+p(\theta) & \propto exp\bigg[-\frac{1}{2}\big(\theta - \mu_\theta\big)^{T}\Sigma_\theta^{-1}(\theta - \mu_\theta)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\big(\theta^{T}\Sigma_\theta^{-1}{\theta} - 2\theta^{T}\Sigma_\theta^{-1}\mu_\theta + \mu_\theta^{T}\Sigma_\theta^{-1}\mu_\theta\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\big(\theta^{T}\Sigma_\theta^{-1}{\theta} - 2\theta^{T}\Sigma_\theta^{-1}\mu_\theta + \mu_\theta^{T}\Sigma_\theta^{-1}\mu_\theta\big)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\big(\theta^{T}\Sigma_\theta^{-1}{\theta} - 2\theta^{T}\Sigma_\theta^{-1}\mu_\theta\big)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\big(\theta^{T}Q_{\theta_1}{\theta} - 2\theta^{T}\ell_{\theta_1}\big)\bigg] \\
+\end{aligned}
+\]
+\newline
+Where:
+\newline
+\newline
+$Q_{\theta_1} = \Sigma_\theta^{-1}$
+\newline
+$\ell_{\theta_1} = \Sigma_\theta^{-1}\mu_\theta$
+\newline
+\newline
+\newline
+Likelihood:
+\newline
+\[
+\begin{aligned}
+p(y|\theta) & \propto exp\bigg[-\frac{1}{2}\bigg(\sum_{i=1}^n y_i^{T}\Sigma^{-1}y_i - 2\sum_{i=1}^n \theta^T{\Sigma^{-1}}y_i + \sum_{i=1}^n \theta^T \Sigma^{-1}\theta \bigg)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\bigg(\theta^T n\Sigma^{-1}\theta - 2 \theta^T{\Sigma^{-1}}n{\bar{y}}\bigg)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\bigg(\theta^TQ_{\theta_2}\theta - 2 \theta^T\ell_{\theta_2}\bigg)\bigg] \\
+\end{aligned}
+\]
+\newline
+Where:
+\newline
+\newline
+$Q_{\theta_2} = n\Sigma^{-1}$
+\newline
+$\ell_{\theta_2} = \Sigma^{-1}n\bar{y}$
+\newline
+\newline
+\newline
+Posterior:
+\newline
+\[
+\begin{aligned}
+p(\theta|y) & \propto exp\bigg[-\frac{1}{2}\big(\theta^{T}Q_{\theta_1}{\theta} - 2\theta^{T}\ell_{\theta_1}\big)\bigg] \times
+exp\bigg[-\frac{1}{2}\bigg(\theta^TQ_{\theta_2}\theta - 2 \theta^T\ell_{\theta_2}\bigg)\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\theta^TQ_{\theta_1}\theta + \theta^T\ell_{\theta_1} -\frac{1}{2}\theta^TQ_{\theta_2}\theta + \theta^T\ell_{\theta_2}\bigg] \\
+& \propto exp\bigg[\theta^T\big(\ell_{\theta_1} + \ell_{\theta_2}\big) - \frac{1}{2}\theta^T\big(Q_{\theta_1} + Q_{\theta_2}\big)\theta\bigg] \\
+& \propto exp\bigg[-\frac{1}{2}\big(\theta^TQ_\theta\theta - 2\theta^T\ell_\theta\big)\bigg] \\
+\end{aligned}
+\]
+\newline
+Where:
+\newline
+\newline
+$Q_{\theta} = Q_{\theta_1} + Q_{\theta_2} = \Sigma_\theta^{-1} + n\Sigma_\theta^{-1}$
+\newline
+$\ell_{\theta} = \ell_{\theta_1} + \ell_{\theta_2} = \Sigma_\theta^{-1}\mu_\theta + \Sigma^{-1}n\bar{y}$
+\newline
+\newline
+Thus:
+\newline
+\newline
+$\theta|y \sim MVN(Q_\theta^{-1}\ell_\theta, Q_\theta^{-1})$
+
+## Part ii
+
+Posterior Mean, $Q_\theta^{-1}\ell_\theta$:
+
+$$
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta_1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta_2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta_3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta_4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
++
+\begin{pmatrix} 
+\frac{n}{\sigma_{1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n}{\sigma_{2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n}{\sigma_{3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n}{\sigma_{4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
+\times
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta_1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta_2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta_3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta_4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}\mu_\theta
++
+\begin{pmatrix} 
+\frac{n\bar{y}}{\sigma_{1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n\bar{y}}{\sigma_{2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n\bar{y}}{\sigma_{3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n\bar{y}}{\sigma_{4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}
+$$
+
+Posterior Covariance, $Q_\theta^{-1}$:
+
+$$
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta_1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta_2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta_3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta_4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
++
+\begin{pmatrix} 
+\frac{n}{\sigma_{1}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n}{\sigma_{2}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n}{\sigma_{3}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n}{\sigma_{4}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
+$$
+
+## Part iii
+
+Posterior Mean, $Q_\theta^{-1}\ell_\theta$:
+
+$$
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
++
+\begin{pmatrix} 
+\frac{n}{\sigma^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n}{\sigma^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n}{\sigma^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n}{\sigma^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
+\times
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}\mu_\theta
++
+\begin{pmatrix} 
+\frac{n\bar{y}}{\sigma^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n\bar{y}}{\sigma^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n\bar{y}}{\sigma^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n\bar{y}}{\sigma^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}
+$$
+
+Posterior Covariance, $Q_\theta^{-1}$:
+
+$$
+\begin{pmatrix} 
+\frac{1}{\sigma_{\theta}^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{1}{\sigma_{\theta}^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{1}{\sigma_{\theta}^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{1}{\sigma_{\theta}^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
++
+\begin{pmatrix} 
+\frac{n}{\sigma^2} & 0 & 0 & 0 & ...\\ 
+0 & \frac{n}{\sigma^2} & 0 & 0 & ...\\ 
+0 & 0 & \frac{n}{\sigma^2} & 0 & ...\\ 
+0 & 0 & 0 & \frac{n}{\sigma^2} & ... \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{pmatrix}^{-1}
+$$
+
 # Problem 3
 
 Solving for $a$ in equation (b) yields:
