@@ -7,21 +7,100 @@ output: pdf_document
 
 # Problem 1
 
+```{r, echo = FALSE}
+
+## Load necessary packages
+
+library(coda)
+suppressMessages(
+suppressWarnings(
+    library(asbio)
+)
+)
+
+
+
+########## Problem 1 ##########
+
+
+
+##### Part i #####
+
+
+
+num_draws <- 10^4
+
+mean_c <- 1.013
+mean_t <- 1.173
+
+## Draw from the scaled inverse chi-square
+
+n_1 <- 32
+df <- n_1 - 1
+
+samp_i_1 <- rinvchisq(num_draws, df, scale=1/df)
+
+## Draw from the normal distribution
+
+samp_i_2 <- rnorm(num_draws, mean = mean_c, sqrt(samp_i_1))
+
+
+
+##### Part ii #####
+
+## Draw from the scaled inverse chi-square
+
+n_2 <- 36
+df <- n_2 - 1
+
+samp_ii_1 <- rinvchisq(num_draws, df, scale=1/df)
+
+## Draw from the normal distribution
+
+samp_ii_2 <- rnorm(num_draws, mean = mean_t, sqrt(samp_ii_1))
+
+```
+
 ## Part i
 
-BLAH
+Please see the Code Appendix for the sampling technique.
 
 ## Part ii
 
-BLAH
+Please see the Code Appendix for the sampling technique.
 
 ## Part iii
 
-BLAH
+```{r, echo = FALSE, fig.height = 4}
+
+##### Part iii #####
+
+## Generate the histogram of mean differences
+
+hist(samp_ii_2 - samp_i_2,
+     xlab = "Mean Difference",
+     ylab = "",
+     main ="Histogram: Mean Difference")
+
+```
 
 ## Part iv
 
-BLAH
+```{r, echo = FALSE}
+
+##### Part iv #####
+
+## Construct the HPD interval of mean differences
+
+interval <- as.vector(HPDinterval(as.mcmc(samp_ii_2 - samp_ii_1), prob = 0.95)[1, 1:2])
+
+## Output the result
+
+cat("HPD Interval: ", "(", interval[1], ",", interval[2], ")")
+
+```
+
+Since out interval does not contain zero, we can be certain that the treatment group mean is larger than the control group mean, thus implying that the treatment does have a material affect as compared to the control.
 
 # Problem 2
 
@@ -239,3 +318,78 @@ Q_\theta{\theta^*} & = \ell_\theta + Le \\
 \]
 
 Thus we see that $\theta^* \sim N({Q_\theta^{-1}}\ell_\theta, Q_\theta^{-1})$.
+
+# Code Appendix
+
+```{r, eval = FALSE}
+
+## Load necessary packages
+
+library(coda)
+library(asbio)
+
+
+
+########## Problem 1 ##########
+
+
+
+##### Part i #####
+
+
+
+num_draws <- 10^4
+
+mean_c <- 1.013
+mean_t <- 1.173
+
+## Draw from the scaled inverse chi-square
+
+n_1 <- 32
+df <- n_1 - 1
+
+samp_i_1 <- rinvchisq(num_draws, df, scale=1/df)
+
+## Draw from the normal distribution
+
+samp_i_2 <- rnorm(num_draws, mean = mean_c, sqrt(samp_i_1))
+
+
+
+##### Part ii #####
+
+## Draw from the scaled inverse chi-square
+
+n_2 <- 36
+df <- n_2 - 1
+
+samp_ii_1 <- rinvchisq(num_draws, df, scale=1/df)
+
+## Draw from the normal distribution
+
+samp_ii_2 <- rnorm(num_draws, mean = mean_t, sqrt(samp_ii_1))
+
+
+
+##### Part iii #####
+
+## Generate the histogram of mean differences
+
+hist(samp_ii_2 - samp_i_2,
+     xlab = "Mean Difference",
+     ylab = "",
+     main ="Histogram: Mean Difference")
+
+
+
+##### Part iv #####
+
+## Construct the HPD interval of mean differences
+
+interval <- as.vector(HPDinterval(as.mcmc(samp_ii_2 - samp_ii_1), prob = 0.95)[1, 1:2])
+
+## Output the result
+
+cat("HPD Interval: ", "(", interval[1], ",", interval[2], ")")
+
+```

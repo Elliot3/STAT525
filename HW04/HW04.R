@@ -1,6 +1,7 @@
-## Load necessaey packages
+## Load necessary packages
 
 library(coda)
+library(asbio)
 
 
 
@@ -60,7 +61,11 @@ hist(samp_ii_2 - samp_i_2,
 
 ## Construct the HPD interval of mean differences
 
-HPDinterval(as.mcmc(samp_ii_2 - samp_i_2), prob = 0.95)
+interval <- as.vector(HPDinterval(as.mcmc(samp_ii_2 - samp_ii_1), prob = 0.95)[1, 1:2])
+
+## Output the result
+
+cat("HPD Interval: ", "(", interval[1], ",", interval[2], ")")
 
 
 
