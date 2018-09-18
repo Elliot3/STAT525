@@ -7,6 +7,22 @@ output: pdf_document
 
 # Problem 1
 
+## Part i
+
+BLAH
+
+## Part ii
+
+BLAH
+
+## Part iii
+
+BLAH
+
+## Part iv
+
+BLAH
+
 # Problem 2
 
 ## Part i
