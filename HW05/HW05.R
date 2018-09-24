@@ -2,6 +2,10 @@
 
 options(scipen = 999)
 
+## Load in packages
+
+library(fGarch)
+
 
 
 ########## Problem 1 ##########
@@ -257,6 +261,24 @@ for(s in 1:S) {
 
 
 ##### Part iii #####
+
+
+
+##### Part iv #####
+
+
+
+########## Problem 4 ##########
+
+
+
+##### Exercise 10.6 #####
+
+
+
+### Part a ####
+
+
 
 
 

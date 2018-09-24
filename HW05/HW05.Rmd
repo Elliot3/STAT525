@@ -13,6 +13,12 @@ output: pdf_document
 
 options(scipen = 999)
 
+## Load in packages
+
+library(fGarch)
+
+
+
 ########## Problem 1 ##########
 
 
@@ -338,6 +344,14 @@ for(s in 1:S) {
 Please refer to the Code Appendix section for the technique used to construct the replicate data set.
 
 ## Part iii
+
+BLAH BLAH
+
+## Part iv
+
+BLAH BLAH
+
+# Problem 4
 
 
 
