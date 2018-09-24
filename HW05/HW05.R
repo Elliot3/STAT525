@@ -24,7 +24,7 @@ beta <- alpha * 15
 
 ## Sample from the Gamma
 
-samp_1i <- rgamma(n = S, shape = n + alpha, rate = beta + sum(y))
+samp_1i <- rgamma(n <- S, shape = n + alpha, rate = beta + sum(y))
 
 
 
@@ -38,7 +38,7 @@ y_rep <- matrix(0, nrow = S, ncol = n)
 
 for(s in 1:S) {
     
-    y_rep[s,] = rexp(n = n, rate = samp_1i[s])
+    y_rep[s,] <- rexp(n = n, rate = samp_1i[s])
     
 }
 
@@ -133,7 +133,7 @@ z_rep <- matrix(0, nrow = S, ncol = n)
 
 for(s in 1:S) {
     
-    z_rep[s,] = rnorm(n = n, mean = post_mu[s], sd = post_sigma[s])
+    z_rep[s,] <- rnorm(n = n, mean = post_mu[s], sd = post_sigma[s])
     
 }
 
@@ -185,6 +185,80 @@ wait_10 <- mean(z_rep < 10)
 ## Output the results
 
 cat("Probability 10 Minute Wait: ", round(wait_10, 4))
+
+
+
+########## Problem 3 ##########
+
+
+
+## Load in the data and known parameters
+
+y <- c(1.960,
+      1.823,
+      0.968,
+      2.753,
+      0.779,
+      3.003,
+      2.463,
+      2.197,
+      2.806,
+      3.137,
+      -1.813,
+      -4.242,
+      -19.780,
+      8.597,
+      -3.134,
+      7.486,
+      12.621,
+      -11.511,
+      -12.746,
+      17.244)
+n <- length(y)
+S <- 10000
+alpha <- 0.01
+beta <- 0.01
+
+
+
+##### Part i #####
+
+
+
+## Draw the sample from the posterior
+
+s_squared <- sd(y)^2
+post_tau <- rgamma(n = S, 
+                   shape = alpha + (n - 1)/2,
+                   rate = beta + (n - 1) * (s_squared / 2))
+
+post_sigma <- 1/sqrt(post_tau)
+
+Q_mu <- n * post_tau
+ell_mu <- n * post_tau * mean(y)
+post_mu <- rnorm(n = S, mean = (Q_mu^-1) * ell_mu, sd = sqrt(Q_mu^-1))
+
+
+
+##### Part ii #####
+
+
+
+## Construct the replicate data set
+
+y_rep <- matrix(0, nrow = S, ncol = n)
+
+for(s in 1:S) {
+    
+    y_rep[s,] <- rnorm(n = n, mean = post_mu[s], sd = post_sigma[s])
+    
+}
+
+
+
+##### Part iii #####
+
+
 
 
 
