@@ -129,6 +129,101 @@ pval_q25 <- mean(y_rep_q25 > quantile(y, 0.25))
 pval_med <- mean(y_rep_med > median(y))
 pval_sd <- mean(y_rep_sd > sd(y))
 
+## Probability of waiting at most 10 minutes
+
+wait_10 <- mean(y_rep < 10)
+
+## Output the results
+
+cat("Minimum p-value: ", round(pval_min, 4))
+cat("25% Quantile p-value: ", round(pval_q25, 4))
+cat("Median p-value: ", round(pval_med, 4))
+cat("Standard Deviation p-value: ", round(pval_sd, 4))
+cat("Probability 10 Minute Wait: ", round(wait_10, 4))
+
+```
+
+Our results imply that our model not be correct since many of our p-values are quite different from our observed value; this tells us that it is very unlikely that the observed value of each statistic lies in our posterior predictive distributions. This suggests that the quantity we computed in class may be incorrect since the median observed values is larger than 10 and our calculated distribution shows a similar result. Since the probability of a 10 minute wait according to our posterior predictive distribution is about 50%, our model may not be accurate.
+
+# Problem 2
+
+```{r, echo = FALSE}
+
+########## Problem 2 ##########
+
+
+
+## Input the known parameters and data
+
+z <- log(y)
+n <- length(z)
+S <- 10000
+alpha <- 0.01
+beta <- 0.01
+
+## Draw the sample from the posterior
+
+s_squared <- sd(z)^2
+post_tau <- rgamma(n = S, 
+                  shape = alpha + (n - 1)/2,
+                  rate = beta + (n - 1) * (s_squared / 2))
+
+post_sigma <- 1/sqrt(post_tau)
+
+Q_mu <- n * post_tau
+ell_mu <- n * post_tau * mean(z)
+post_mu <- rnorm(n = S, mean = (Q_mu^-1) * ell_mu, sd = sqrt(Q_mu^-1))
+
+```
+
+## Part i
+
+Please refer to the Code Appendix section for the sampling technique, the technique used to construct the replicate data set and how test statistics were computed.
+
+```{r, echo = FALSE, fig.height = 6}
+
+##### Part i #####
+
+
+
+## Construct the replicate data set
+
+z_rep <- matrix(0, nrow = S, ncol = n)
+
+for(s in 1:S) {
+    
+    z_rep[s,] = rnorm(n = n, mean = post_mu[s], sd = post_sigma[s])
+    
+}
+
+## Compute the required test statistics for each replicate data set
+
+z_rep_min <- apply(z_rep, 1, min)
+z_rep_q25 <- apply(z_rep, 1, quantile, probs = 0.25)
+z_rep_med <- apply(z_rep, 1, median)
+z_rep_sd <- apply(z_rep, 1, sd)
+
+par(mfrow = c(2, 2))
+
+hist(x = z_rep_min)
+abline(v = min(z), col = 'blue')
+
+hist(x = z_rep_q25)
+abline(v = quantile(z, 0.25), col = 'blue')
+
+hist(x = z_rep_med)
+abline(v = median(z), col = 'blue')
+
+hist(x = z_rep_sd)
+abline(v = sd(z), col = 'blue')
+
+## Compute the posterior predictive p-values for each statistic
+
+pval_min <- mean(z_rep_min > min(z))
+pval_q25 <- mean(z_rep_q25 > quantile(z, 0.25))
+pval_med <- mean(z_rep_med > median(z))
+pval_sd <- mean(z_rep_sd > sd(z))
+
 ## Output the results
 
 cat("Minimum p-value: ", round(pval_min, 4))
@@ -138,7 +233,30 @@ cat("Standard Deviation p-value: ", round(pval_sd, 4))
 
 ```
 
-Our results imply that our model not be correct since many of our p-values are quite different from our observed value; this tells us that it is very unlikely that the observed value of each statistic lies in our posterior predictive distributions. This suggests that the quantity we computed in class may be incorrect since the median observed values is larger than 10 and our calculated distribution shows a similar result.
+## Part ii
+
+```{r, echo = FALSE}
+
+##### Part ii #####
+
+
+
+## Probability of waiting at most 10 minutes
+
+wait_10 <- mean(z_rep < 10)
+
+## Output the results
+
+cat("Probability 10 Minute Wait: ", round(wait_10, 4))
+
+```
+
+Yes this estimate seems to be much more reasonable, our result implies that we would certainly expect our result due to the result of the probability of a 10 minute wait according to our posterior predictive distribution.
+
+
+
+
+
 
 
 
