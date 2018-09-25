@@ -349,8 +349,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0
+var_true <- 1
 
 ## Output the results
 
@@ -390,8 +390,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0
+var_true <- 1
 
 ## Output the results
 
@@ -455,8 +455,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0
+var_true <- 1
 
 ## Output the results
 
@@ -496,8 +496,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0
+var_true <- 1
 
 ## Output the results
 
