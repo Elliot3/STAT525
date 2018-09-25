@@ -259,7 +259,7 @@ cat("Probability 10 Minute Wait: ", round(wait_10, 4))
 
 ```
 
-Yes this estimate seems to be much more reasonable as our result implies that we would certainly expect to see our result less often than originally predicted in the previous problem; our data and results reinforce this result.
+Yes this estimate seems to be much more reasonable as our result implies that we would certainly expect to see our result less often than originally predicted in the previous problem; our data and results, given that our Bayesian p-values tend to better represent that statistics in question, reinforce this result.
 
 # Problem 3
 
@@ -401,7 +401,7 @@ cat("Probability 10 Minute Wait: ", round(post_pred, 4))
 
 ```
 
-As we can see by the extreme value of our p-value, there is strong evidence of model misspecification. A possible correction would be to explore whether or not the two sets of observations should be modeled together or whether they should be treated and modeled separately.
+As we can see by the extreme value of our p-value, there is strong evidence of model misspecification. A possible correction would be to explore whether or not the two sets of observations should be modeled together or whether they should be treated and modeled separately. If we choose to model the first 10 observations separately from the second 10 observations (thus treating them as samples drawn from separate populations) and create two models, we could be certain that each of the models more closely represents the data it is modeling; this would improve our ability to derive knowledge from our data.
 
 # Problem 4
 
@@ -460,8 +460,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
 
 ## Output the results
 
@@ -505,8 +505,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
 
 ## Output the results
 
@@ -584,8 +584,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
 
 ## Output the results
 
@@ -629,8 +629,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
 
 ## Output the results
 
@@ -640,6 +640,8 @@ cat("Importance Sampled Variance: ", round(var_imp, 4))
 cat("True Variance: ", round(var_true, 4))
 
 ```
+
+Our estimates of $var(\theta|y)$ are sytematically too low due to the fact that the importance weights are not well-behaved because for some values of theta our importance ratios are too large with low probability (we can see this very clearly in our histogram of importance weights). The result of this is that fewer values will be sampled from this region, causing our variance to be skewed.
 
 ### Part d
 
@@ -1014,8 +1016,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
 
 ## Output the results
 
@@ -1055,8 +1057,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
-var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+ex_true <- 0 # mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- 1 # var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
 
 ## Output the results
 
@@ -1120,8 +1122,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
 
 ## Output the results
 
@@ -1161,8 +1163,8 @@ var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_
 
 ## Compute the true EX and VarX
 
-ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
-var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+ex_true <- 0 # mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- 1 # var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
 
 ## Output the results
 
