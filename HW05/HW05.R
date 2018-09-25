@@ -28,7 +28,7 @@ beta <- alpha * 15
 
 ## Sample from the Gamma
 
-samp_1i <- rgamma(n <- S, shape = n + alpha, rate = beta + sum(y))
+samp_1i <- rgamma(n = S, shape = n + alpha, rate = beta + sum(y))
 
 
 
@@ -184,7 +184,7 @@ cat("Standard Deviation p-value: ", round(pval_sd, 4))
 
 ## Probability of waiting at most 10 minutes
 
-wait_10 <- mean(z_rep < 10)
+wait_10 <- mean(z_rep < log(10))
 
 ## Output the results
 
@@ -264,7 +264,45 @@ for(s in 1:S) {
 
 
 
+## Compute the variance difference of the first 10 minus second 10 observation
+
+y_1_var <- var(y[1:10])
+y_2_var <- var(y[11:20])
+
+var_diff <- y_1_var - y_2_var
+
+## Compute the same variance for the replicate data
+
+var_diff_vec <- numeric()
+
+for (i in 1:S) {
+    
+    y_1_temp <- var(y_rep[i, 1:10])
+    y_2_temp <- var(y_rep[i, 11:20])
+    var_diff_vec[i] <- y_1_temp - y_2_temp
+    
+}
+
+## Plot the histogram of the results
+
+par(mfrow = c(1, 1))
+
+hist(var_diff_vec, breaks = 50)
+abline(v = var_diff, col = 'blue')
+
+
+
 ##### Part iv #####
+
+
+
+## Posterior predictive p-value
+
+post_pred <- mean(var_diff < var_diff_vec)
+
+## Output the results
+
+cat("Probability 10 Minute Wait: ", round(post_pred, 4))
 
 
 
@@ -280,9 +318,204 @@ for(s in 1:S) {
 
 
 
+## Input the known parameters
+
+S <- 100
+mu <- 0
+var <- 1
+deg_free <- 3
+
+## Sample theta from g
+
+theta <- rstd(n = S, mean = mu, sd = sqrt(var), nu = deg_free)
+
+## Calculate and plot the importance ratios
+
+import_rat <- dnorm(x = theta, mean = mu, sd = sqrt(var)) /
+    dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free)
+
+hist(import_rat, breaks = 20)
 
 
 
+### Part b ###
 
 
 
+## Compute the importance sampled EX and VarX
+
+ex_imp <- ((1/S) * sum(theta * import_rat)) / ((1/S) * sum(import_rat))
+var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_imp^2
+
+## Compute the true EX and VarX
+
+ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+
+## Output the results
+
+cat("Importance Sampled Expected Value: ", round(ex_imp, 4))
+cat("True Expected Value: ", round(ex_true, 4))
+cat("Importance Sampled Variance: ", round(var_imp, 4))
+cat("True Variance: ", round(var_true, 4))
+
+
+
+### Part c ###
+
+
+
+## Input the known parameters
+
+S <- 10000
+mu <- 0
+var <- 1
+deg_free <- 3
+
+## Sample theta from g
+
+theta <- rstd(n = S, mean = mu, sd = sqrt(var), nu = deg_free)
+
+## Calculate and plot the importance ratios
+
+import_rat <- dnorm(x = theta, mean = mu, sd = sqrt(var)) /
+    dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free)
+
+hist(import_rat, breaks = 20)
+
+## Compute the importance sampled EX and VarX
+
+ex_imp <- ((1/S) * sum(theta * import_rat)) / ((1/S) * sum(import_rat))
+var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_imp^2
+
+## Compute the true EX and VarX
+
+ex_true <- mean(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+var_true <- var(dnorm(x = theta, mean = mu, sd = sqrt(var)))
+
+## Output the results
+
+cat("Importance Sampled Expected Value: ", round(ex_imp, 4))
+cat("True Expected Value: ", round(ex_true, 4))
+cat("Importance Sampled Variance: ", round(var_imp, 4))
+cat("True Variance: ", round(var_true, 4))
+
+
+
+### Part d ###
+
+
+
+## Compute the effective sample size
+
+S_eff <- 1 / (sum((import_rat / sum(sample(import_rat)))^2))
+
+## Output the results
+
+cat("Effective Sample Size: ", round(S_eff, 4))
+
+
+
+##### Exercise 10.7 #####
+
+
+
+### Part a ####
+
+
+
+## Input the known parameters
+
+S <- 100
+mu <- 0
+var <- 1
+deg_free <- 3
+
+## Sample theta from g
+
+theta <- rnorm(n = S, mean = mu, sd = sqrt(var))
+
+## Calculate and plot the importance ratios
+
+import_rat <- dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free) /
+    dnorm(x = theta, mean = mu, sd = sqrt(var))
+
+hist(import_rat, breaks = 20)
+
+
+
+### Part b ###
+
+
+
+## Compute the importance sampled EX and VarX
+
+ex_imp <- ((1/S) * sum(theta * import_rat)) / ((1/S) * sum(import_rat))
+var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_imp^2
+
+## Compute the true EX and VarX
+
+ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+
+## Output the results
+
+cat("Importance Sampled Expected Value: ", round(ex_imp, 4))
+cat("True Expected Value: ", round(ex_true, 4))
+cat("Importance Sampled Variance: ", round(var_imp, 4))
+cat("True Variance: ", round(var_true, 4))
+
+
+
+### Part c ###
+
+
+
+## Input the known parameters
+
+S <- 10000
+mu <- 0
+var <- 1
+deg_free <- 3
+
+## Sample theta from g
+
+theta <- rnorm(n = S, mean = mu, sd = sqrt(var))
+
+## Calculate and plot the importance ratios
+
+import_rat <- dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free) /
+    dnorm(x = theta, mean = mu, sd = sqrt(var))
+
+hist(import_rat, breaks = 20)
+
+## Compute the importance sampled EX and VarX
+
+ex_imp <- ((1/S) * sum(theta * import_rat)) / ((1/S) * sum(import_rat))
+var_imp <- ((1/S) * sum(theta^2 * import_rat)) / ((1/S) * sum(import_rat)) - ex_imp^2
+
+## Compute the true EX and VarX
+
+ex_true <- mean(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+var_true <- var(dstd(x = theta, mean = mu, sd = sqrt(var), nu = deg_free))
+
+## Output the results
+
+cat("Importance Sampled Expected Value: ", round(ex_imp, 4))
+cat("True Expected Value: ", round(ex_true, 4))
+cat("Importance Sampled Variance: ", round(var_imp, 4))
+cat("True Variance: ", round(var_true, 4))
+
+
+
+### Part d ###
+
+
+
+## Compute the effective sample size
+
+S_eff <- 1 / (sum((import_rat / sum(sample(import_rat)))^2))
+
+## Output the results
+
+cat("Effective Sample Size: ", round(S_eff, 4))
