@@ -517,6 +517,8 @@ cat("True Variance: ", round(var_true, 4))
 
 ```
 
+As we can see from this result, as the number of sampled points increases, we can expect that our Importance Sampled statistics will become closer to the true value of those statistics.
+
 ### Part d
 
 ```{r, echo = FALSE}
