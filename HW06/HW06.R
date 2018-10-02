@@ -185,22 +185,16 @@ abline(v = 0.01, lwd = 5)
 nu <- 4
 S <- 10000
 
-post_gamma <- numeric()
+post_gamma <- rgamma(n = S, shape = (nu / 2), rate = (nu / 2)) 
 
-for (s in 1:S) {
-    
-    post_gamma[s] <- rgamma(n = 1, shape = (nu / 2), rate = (nu / 2))
-    
-}
+post_norm <- rnorm(n = S, mean = 0, sd = 1 / post_gamma)
 
-post_norm <- dnorm(x = post_gamma, mean = 0, sd = sqrt(1 / post_gamma))
-
-t_dens <- dt(x = post_gamma, df = nu)
+t_dens <- rt(n = S, df = nu)
 
 par(mfrow = c(1, 2))
 
-hist(post_norm)
-hist(t_dens)
+hist(post_norm, xlim = c(-25, 25), breaks = 200)
+hist(t_dens, xlim = c(-25, 25), breaks = 20)
 
 
 
