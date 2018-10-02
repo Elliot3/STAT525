@@ -278,7 +278,7 @@ As we can see from our result, we get similar density when comparing our results
 
 ## Part iii
 
-Yes, this result does make sense, because as $\nu \to \infty$ the $Gamma(\frac{\nu}{2}, \frac{\nu}{2})$ will approach the Normal distribution.
+Yes, this result does make sense, because whenever the variance of a normally distributed random variable is unknown and a conjugate prior placed over it that follows a Gamma distribution, the resulting marginal distribution of the variable will follow a Student's t-distribution.
 
 # Problem 3
 
