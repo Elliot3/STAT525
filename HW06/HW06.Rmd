@@ -4,3 +4,82 @@ author: "Elliot Smith"
 date: "10/1/2018"
 output: pdf_document
 ---
+
+# Problem 1
+
+## Part i
+
+$p(\beta|y, \lambda_1, \lambda_2, k) \propto p(y|\lambda_1, \lambda_2, k, \beta) \times p(\lambda_1|y, \lambda_2, k, \beta) \times p(\lambda_2|y, \lambda_1, k, \beta) \times p(k|y, \lambda_1, \lambda_2, \beta) \times p(\beta)$
+\newline
+\newline
+Since $p(y|\lambda_1, \lambda_2, k, \beta)$ and $p(k|y, \lambda_1, \lambda_2, \beta)$ don't depend on $\beta$, we may ignore them and our equation becomes:
+\newline
+\newline
+$p(\beta|y, \lambda_1, \lambda_2, k) \propto p(\lambda_1|y, \lambda_2, k, \beta) \times p(\lambda_2|y, \lambda_1, k, \beta) \times p(\beta)$
+\newline
+\newline
+Where:
+
+\[
+\begin{aligned}
+p(\lambda_1|y, \lambda_2, k, \beta) & = p(y|\lambda_1, \lambda_2, k)p(\lambda_1) \\
+& \sim Gamma\bigg(\alpha + \sum_{t=1}^k y_t, \beta + k\bigg)
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+p(\lambda_2|y, \lambda_1, k, \beta) & = p(y|\lambda_1, \lambda_2, k)p(\lambda_2) \\
+& \sim Gamma\bigg(\alpha + \sum_{t=k+1}^n y_t, \beta + (n - k)\bigg)
+\end{aligned}
+\]
+
+So:
+
+\[
+\begin{aligned}
+p(\beta|y, \lambda_1, \lambda_2, k) & \propto p(\lambda_1|y, \lambda_2, k, \beta) \times p(\lambda_2|y, \lambda_1, k, \beta) \times p(\beta) \\
+& \propto \lambda_1^{\alpha - 1 + \sum_{t=1}^k y_t}e^{-(\beta + k)\lambda_1}\lambda_2^{\alpha - 1 + \sum_{t=k+1}^n y_t}e^{-(\beta + (n - k))\lambda_2}\beta^{a_\beta - 1}e^{-{b_\beta}\beta}
+\end{aligned}
+\]
+
+## Part ii
+
+## Part iii
+
+## Part iv
+
+# Problem 2
+
+## Part i
+
+\[
+\begin{aligned}
+p(y|\mu, \alpha, \beta) & = \int \frac{\beta^\alpha}{\Gamma(\alpha)}\tau^{\alpha - 1}e^{-\beta\tau}\bigg(\frac{\tau}{2\pi}\bigg)^{\frac{1}{2}}e^{-\frac{\tau}{2}(y - \mu)^2}d\tau \\
+& = \frac{\beta^\alpha}{\Gamma(\alpha)}\frac{1}{(2\pi)^{\frac{1}{2}}} \int \tau^{\alpha - \frac{1}{2}}e^{-\beta\tau}e^{-\frac{\tau}{2}(y - \mu)^2}d\tau \\
+& = \frac{\beta^\alpha}{\Gamma(\alpha)}\frac{1}{(2\pi)^{\frac{1}{2}}} \int \tau^{\alpha - \frac{1}{2}}e^{-(\beta + \frac{1}{2}(y - \mu)^2)\tau}d\tau \\
+& = \frac{\beta^\alpha}{\Gamma(\alpha)}\frac{1}{(2\pi)^{\frac{1}{2}}}\frac{\Gamma(\alpha + \frac{1}{2})}{(\beta + \frac{1}{2}(y - \mu)^2)^{\alpha + \frac{1}{2}}} \\
+& = \frac{\Gamma(\alpha + \frac{1}{2})}{\Gamma(\alpha)}\frac{1}{(2\pi\beta)^{\frac{1}{2}}}\frac{1}{(1 + \frac{1}{2\beta}(y - \mu)^2)^{\alpha + \frac{1}{2}}}
+\end{aligned}
+\]
+
+And now substituting in for $z_i$ and our Gamma parameters for $\alpha$ and $\beta$ we get the following result:
+\newline
+\newline
+$p(z_i) = \frac{\Gamma(\frac{\nu + 1}{2})}{\sqrt{\pi\nu}\Gamma(\frac{\nu}{2})}\frac{1}{\bigg(1 + \frac{z_i^2}{\nu}\bigg)^{\frac{\nu + 1}{2}}}$
+
+## Part ii
+
+## Part iii
+
+# Problem 3
+
+## Part i
+
+## Part ii
+
+## Part iii
+
+## Part iv
+
+## Part v
