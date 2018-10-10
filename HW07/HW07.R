@@ -18,6 +18,28 @@ Y <- length(y)
 
 
 
+## Initialize an acceptance counter
+
+count_accept <- 0
+
+## Store the posterior simulations
+
+post_theta = array(0, c(S, 3))
+
+## Loop through and generate the posterior simulations
+
+for (s in 1:S) {
+    
+    mu_star <- rnorm(n = 1, mean = 0, sd = 10)
+    phi_star <- rnorm(n = 1, mean = 0, sd = 10)
+    tau_star <- rgamma(n = 1, shape = 0.01, rate = 0.01)
+    
+    theta_star <- mu_star * phi_star * tau_star
+    
+}
+
+
+
 ##### Part ii #####
 
 

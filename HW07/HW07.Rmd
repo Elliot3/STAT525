@@ -7,35 +7,6 @@ output: pdf_document
 
 # Problem 1
 
-Prior Distribution:
-\newline
-\[
-\begin{aligned}
-p(\theta) & = p(\mu)p(\phi)p(\tau) \\
-& = \frac{1}{\sqrt{200\pi}}e^{-\frac{1}{2\times100}\mu^2} \times \frac{1}{\sqrt{200\pi}}e^{-\frac{1}{2\times100}\phi^2} \times
-\frac{0.01^0.01}{\Gamma(0.01)}\tau^{0.01 - 1}e^{-0.01\tau} \\
-& \propto e^{\mu^2} \times e^{\phi^2} \times \tau^{-0.99}e^{-0.01\tau} \\
-& = e^{\mu^2 + \phi^2 - 0.01\tau}\tau^{-0.99}
-\end{aligned}
-\]
-Likelihood:
-\newline
-\[
-\begin{aligned}
-p(y|\theta) & = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2\sigma^2}y^2} \\
-& \propto e^{-\frac{y^2}{2\sigma^2}} \\
-\end{aligned}
-\]
-Posterior Distribution:
-\newline
-\[
-\begin{aligned}
-p(\theta|y) & \propto p(y|\theta)p(\theta) \\
-& \propto e^{-\frac{y^2}{2\sigma^2}} \times e^{\mu^2 + \phi^2 - 0.01\tau}\tau^{-0.99} \\
-& \propto e^{\mu^2 + \phi^2 - 0.01\tau - \frac{y^2}{2\sigma^2}}\tau^{-0.99}
-\end{aligned}
-\]
-
 ## Part i
 
 ## Part ii
