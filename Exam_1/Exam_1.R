@@ -1,0 +1,441 @@
+########## Workspace Preparation ##########
+
+
+
+## Load in the necessary packages
+
+suppressMessages(
+    suppressWarnings(
+        library(EnvStats)
+    )
+)
+library(coda)
+
+
+
+########## Problem 1 ##########
+
+
+
+##### Part i #####
+
+
+
+##### Part ii #####
+
+
+
+##### Part iii #####
+
+
+
+##### Part iv #####
+
+
+
+## Input the known paramters
+
+S <- 100
+n <- 20
+
+shape_weak <- 1.25
+location_weak <- 1
+
+shape_non <- 0.5
+location_non <- 0.5
+
+
+
+### Weakly Informative Prior ###
+
+
+
+## Sample from the weakly informative prior distribution
+
+theta_weak_samp <- rpareto(n = S, location = location_weak, shape = shape_weak)
+
+## Construct the container for the replicate data sets for the weakly informative prior
+
+y_rep_weak <- matrix(0, nrow = S, ncol = n)
+
+## Loop through and sample from the weakly informative prior
+
+for(s in 1:S) {
+    
+    y_rep_weak[s,] <- runif(n = n, min = 0, max = theta_weak_samp[s])
+    
+}
+
+## Compute the required test statistics for each replicate data sets for the weakly informative prior
+
+y_rep_weak_min <- apply(y_rep_weak, 1, min)
+y_rep_weak_med <- apply(y_rep_weak, 1, median)
+y_rep_weak_max <- apply(y_rep_weak, 1, max)
+
+## Plot the histograms of the statistics
+
+par(mfrow = c(1, 3))
+
+hist(y_rep_weak_min, breaks = seq(0, max(y_rep_weak_min), l = 20),
+     main = "Histogram - Minimum Value", xlab = "Minimum Value")
+hist(y_rep_weak_med, breaks = seq(0, max(y_rep_weak_med), l = 20),
+     main = "Histogram - Median Value", xlab = "Median Value")
+hist(y_rep_weak_max, breaks = seq(0, max(y_rep_weak_max), l = 20),
+     main = "Histogram - Maximum Value", xlab = "Maximum Value")
+
+
+
+### Noninformative Prior ###
+
+
+
+## Sample from the noninformative prior distribution
+
+theta_non_samp <- rpareto(n = S, location = location_non, shape = shape_non)
+
+## Construct the container for the replicate data sets for the noninformative prior
+
+y_rep_non <- matrix(0, nrow = S, ncol = n)
+
+## Loop through and sample from the noninformative prior
+
+for(s in 1:S) {
+    
+    y_rep_non[s,] <- runif(n = n, min = 0, max = theta_non_samp[s])
+    
+}
+
+## Compute the required test statistics for each replicate data sets for the weakly informative prior
+
+y_rep_non_min <- apply(y_rep_non, 1, min)
+y_rep_non_med <- apply(y_rep_non, 1, median)
+y_rep_non_max <- apply(y_rep_non, 1, max)
+
+## Plot the histograms of the statistics
+
+par(mfrow = c(1, 3))
+
+hist(y_rep_non_min, breaks = seq(0, max(y_rep_non_min), l = 20),
+     main = "Histogram - Minimum Value", xlab = "Minimum Value")
+hist(y_rep_non_med, breaks = seq(0, max(y_rep_non_med), l = 20),
+     main = "Histogram - Median Value", xlab = "Median Value")
+hist(y_rep_non_max, breaks = seq(0, max(y_rep_non_max), l = 20),
+     main = "Histogram - Maximum Value", xlab = "Maximum Value")
+
+
+
+##### Part v #####
+
+
+
+## Load in the data
+
+y = c(2.21, 14.49, 2.42, 12.37, 11.54, 9.56, 0.59, 5.43, 5.07, 8.77, 13.84,
+      0.86, 5.97, 3.38, 14.83, 11.87, 10.56, 12.54, 10.97, 13.28)
+
+## Set our theta
+
+theta <- seq(from = 0, to = 20, length.out = 100)
+
+## Set our plots side-by-side
+
+par(mfrow = c(1, 2))
+
+## Generate the plots for the weakly informative prior
+
+plot(x = theta,
+     y = dpareto(x = theta, location = max(location_weak, y), shape = shape_weak + n),
+     type = "l", ylab = "p(theta|y)", main = "Weakly Informative")
+mtext("Dotted - Prior / Straight - Posterior")
+
+lines(x = theta,
+      y = dpareto(x = theta, location = location_weak, shape = shape_weak),
+      type = "l", lty = 2)
+
+## Generate the plots for the noninformative prior
+
+plot(x = theta,
+     y = dpareto(x = theta, location = max(location_non, y), shape = shape_non + n),
+     type = "l", ylab = "p(theta|y)", main = "Noninformative")
+mtext("Dotted - Prior / Straight - Posterior")
+
+lines(x = theta,
+      y = dpareto(x = theta, location = location_non, shape = shape_non),
+      type = "l", lty = 2)
+
+## Draw a sample from each posterior distribution
+
+post_weak <- rpareto(n = 10000, location = max(location_weak, y), shape = shape_weak + n)
+post_non <- rpareto(n = 10000, location = max(location_non, y), shape = shape_non + n)
+
+## Compute the HPD intervals
+
+hpd_int_weak <- as.vector(HPDinterval(as.mcmc(post_weak), prob = 0.95)[1, 1:2])
+hpd_int_non <- as.vector(HPDinterval(as.mcmc(post_non), prob = 0.95)[1, 1:2])
+
+## Output the results
+
+cat("Posterior Credible Interval, Weakly Informative: ", "(", hpd_int_weak[1], ",", hpd_int_weak[2], ")")
+cat("Posterior Credible Interval, Noninformative: ", "(", hpd_int_non[1], ",", hpd_int_non[2], ")")
+
+
+
+##### Part vi #####
+
+
+
+## Compute the real data statistics
+
+y_min <- min(y)
+y_med <- median(y)
+y_max <- max(y)
+
+
+
+### Weakly Informative Prior ###
+
+
+
+## Sample from the weakly informative posterior distribution
+
+theta_weak_samp_post <- rpareto(n = S, location = max(location_weak, y), shape = shape_weak + n)
+
+## Construct the container for the replicate data sets for the weakly informative posterior
+
+y_rep_weak_post <- matrix(0, nrow = S, ncol = n)
+
+## Loop through and sample from the weakly informative posterior
+
+for(s in 1:S) {
+    
+    y_rep_weak_post[s,] <- runif(n = n, min = 0, max = theta_weak_samp_post[s])
+    
+}
+
+## Compute the required test statistics for each replicate data sets for the weakly informative posterior
+
+y_rep_weak_post_min <- apply(y_rep_weak_post, 1, min)
+y_rep_weak_post_med <- apply(y_rep_weak_post, 1, median)
+y_rep_weak_post_max <- apply(y_rep_weak_post, 1, max)
+
+## Plot the histograms of the statistics
+
+par(mfrow = c(1, 3))
+
+hist(y_rep_weak_post_min, breaks = seq(0, max(y_rep_weak_post_min), l = 20),
+     main = "Histogram - Minimum Value", xlab = "Minimum Value")
+abline(v = y_min, lty = 2)
+hist(y_rep_weak_post_med, breaks = seq(0, max(y_rep_weak_post_med), l = 20),
+     main = "Histogram - Median Value", xlab = "Median Value")
+abline(v = y_med, lty = 2)
+hist(y_rep_weak_post_max, breaks = seq(0, max(y_rep_weak_post_max), l = 20),
+     main = "Histogram - Maximum Value", xlab = "Maximum Value")
+abline(v = y_max, lty = 2)
+
+
+
+### Noninformative Prior ###
+
+
+
+## Sample from the noninformative posterior distribution
+
+theta_non_samp_post <- rpareto(n = S, location = max(location_non, y), shape = shape_non + n)
+
+## Construct the container for the replicate data sets for the noninformative posterior
+
+y_rep_non_post <- matrix(0, nrow = S, ncol = n)
+
+## Loop through and sample from the noninformative posterior
+
+for(s in 1:S) {
+    
+    y_rep_non_post[s,] <- runif(n = n, min = 0, max = theta_non_samp_post[s])
+    
+}
+
+## Compute the required test statistics for each replicate data sets for the noninformative posterior
+
+y_rep_non_post_min <- apply(y_rep_non_post, 1, min)
+y_rep_non_post_med <- apply(y_rep_non_post, 1, median)
+y_rep_non_post_max <- apply(y_rep_non_post, 1, max)
+
+## Plot the histograms of the statistics
+
+par(mfrow = c(1, 3))
+
+hist(y_rep_non_post_min, breaks = seq(0, max(y_rep_non_post_min), l = 20),
+     main = "Histogram - Minimum Value", xlab = "Minimum Value")
+abline(v = y_min, lty = 2)
+hist(y_rep_non_post_med, breaks = seq(0, max(y_rep_non_post_med), l = 20),
+     main = "Histogram - Median Value", xlab = "Median Value")
+abline(v = y_med, lty = 2)
+hist(y_rep_non_post_max, breaks = seq(0, max(y_rep_non_post_max), l = 20),
+     main = "Histogram - Maximum Value", xlab = "Maximum Value")
+abline(v = y_max, lty = 2)
+
+
+
+########## Problem 2 ##########
+
+
+
+## Load in the data
+
+dat <- read.csv('~/Documents/Rice_University/Fall_2018/STAT525/Exam_1/bac.csv')
+
+## Assign variables
+
+y <- dat$y
+x <- dat$X
+dates <- as.Date(dat$dates)
+n <- length(y)
+
+
+
+##### Part i #####
+
+
+
+##### Part ii #####
+
+
+
+##### Part iii #####
+
+
+
+## Input the function to compute the y full conditional on k = j
+
+p_full_cond <- function(tau_1, tau_2, mu_1, mu_2, j) {
+    
+    sqrt(tau_2) * exp(-(tau_2 / 2) * cumsum((y - mu_2)^2)) *
+        (sqrt(tau_1 / tau_2)) * exp((tau_2 / 2) * cumsum((y - mu_2)^2) - (tau_1 / 2) * cumsum((y - mu_1)^2))
+    
+}
+
+
+
+##### Part iv #####
+
+
+
+## Number of iterations
+
+S <- 10000
+
+## Select some initial values
+
+k <- ceiling(n / 2)
+
+mu_1 <- mean(y[1:k])
+mu_2 <- mean(y[(k + 1):n])
+tau_1 <- sqrt(1 / var(y[1:k]))
+tau_2 <- sqrt(1 / var(y[(k + 1):n]))
+
+## Set containers for the variables
+
+post_k <- array(0, c(S, 1))
+post_mu_1 <- array(0, c(S, 1))
+post_mu_2 <- array(0, c(S, 1))
+post_tau_1 <- array(0, c(S, 1))
+post_tau_2 <- array(0, c(S, 1))
+
+## Loop through to perform the Gibbs sampling
+
+for (s in 1:S) {
+    
+    ## Included this to deal with the case where k = n
+    
+    if (k == n) {k = (n - 1)}
+    
+    ## Sample from mu_1
+    
+    mu_1 <- rnorm(n = 1,
+                  mean = (tau_1 * sum(y[1:k])) / (1 + (k * tau_1)),
+                  sd = sqrt(1 / (1 + (k * tau_1)))
+                  )
+    
+    ## Sample from mu_2
+    
+    mu_2 <- rnorm(n = 1,
+                  mean = (tau_2 * sum(y[(k + 1):n])) / (1 + (k * tau_2)),
+                  sd = sqrt(1 / (1 + (k * tau_2)))
+    )
+    
+    ## Sample from tau_1
+    
+    tau_1 <- rgamma(n = 1,
+                    shape = 2 + (k / 2),
+                    rate = 1 + (1 / 2) * sum((y[1:k] - mu_1)^2)
+                    )
+    
+    ## Sample from tau_2
+    
+    tau_2 <- rgamma(n = 1,
+                    shape = 2 + ((n - k) / 2),
+                    rate = 1 + (1 / 2) * sum((y[(k + 1):n] - mu_2)^2)
+    )
+    
+    ## Sample from k
+    
+    k_func <- (sqrt(tau_1 / tau_2)) * exp((tau_2 / 2) * cumsum((y - mu_2)^2) - (tau_1 / 2) * cumsum((y - mu_1)^2))
+    
+    k <- sample(x = 1:n, size = 1, prob = k_func)
+    
+    ## Store the results
+    
+    post_k[s] <- k
+    post_mu_1[s] <- mu_1
+    post_mu_2[s] <- mu_2
+    post_tau_1[s] <- tau_1
+    post_tau_2[s] <- tau_2
+    
+}
+
+## Plot the traceplot for post k
+
+par(mfrow = c(1, 1))
+plot(post_k[seq(1, length(post_k), 10)], type = "l", main = "Traceplot: Post k", ylab = "post_k")
+
+## Plot the traceplot for post mu_1 and mu_2
+
+par(mfrow = c(1, 2))
+plot(post_mu_1[seq(1, length(post_mu_1), 10)], type = "l", main = "Traceplot: Post mu_1", ylab = "post_mu_1")
+plot(post_mu_2[seq(1, length(post_mu_2), 10)], type = "l", main = "Traceplot: Post mu_2", ylab = "post_mu_2")
+
+## Plot the traceplot for post tau_1 and tau_2
+
+par(mfrow = c(1, 2))
+plot(post_tau_1[seq(1, length(post_tau_1), 10)], type = "l", main = "Traceplot: Post tau_1", ylab = "post_tau_1")
+plot(post_tau_2[seq(1, length(post_tau_2), 10)], type = "l", main = "Traceplot: Post tau_2", ylab = "post_tau_2")
+
+
+
+##### Part v #####
+
+
+
+par(mfrow = c(1, 1))
+
+hpd_int <- as.vector(HPDinterval(as.mcmc(post_k)))
+
+plot(x = x, y = y, xlab = 't', main = 'BAC Return')
+abline(v = hpd_int, lwd = 5, lty = 2)
+abline(v = mean(post_k), lwd = 5, lty = 1)
+
+
+
+##### Part vi #####
+
+
+
+## Compute the hpd intervals
+
+mu_hpd <- as.vector(HPDinterval(as.mcmc(post_mu_2 - post_mu_1)))
+tau_hpd <- as.vector(HPDinterval(as.mcmc(post_tau_2 - post_tau_1)))
+
+## Output the results
+
+cat("Posterior Credible Interval, mu_2 - mu_1: ", "(", mu_hpd[1], ",", mu_hpd[2], ")")
+cat("Posterior Credible Interval, tau_2 -tauu_1: ", "(", tau_hpd[1], ",", tau_hpd[2], ")")
