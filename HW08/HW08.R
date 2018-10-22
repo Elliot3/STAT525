@@ -1,3 +1,4 @@
+
 ########## Prepare Workspace ##########
 
 
@@ -8,9 +9,21 @@ setwd('~/Documents/Rice_University/Fall_2018/STAT525/HW08')
 
 ## Load in the necessary packages
 
-library(rstan)
-library(bayesplot)
-library(coda)
+suppressMessages(
+    suppressWarnings(
+        library(rstan)
+    )
+)
+suppressMessages(
+    suppressWarnings(
+        library(coda)
+    )
+)
+suppressMessages(
+    suppressWarnings(
+        library(bayesplot)
+    )
+)
 
 ## Detect the number of core for parallel processing
 
@@ -59,8 +72,8 @@ print(fit_unif)
 check_hmc_diagnostics(fit_beta)
 check_hmc_diagnostics(fit_unif)
 
-stan_rhat(fit_beta, 'theta')
-stan_rhat(fit_unif, 'theta')
+stan_rhat(fit_beta, 'theta', bins = 10)
+stan_rhat(fit_unif, 'theta', bins = 10)
 
 ## Plot the traceplot for each prior
 
@@ -84,12 +97,3 @@ mcmc_areas(as.matrix(fit_beta), pars = c('theta'), prob = 0.8) +
 
 mcmc_areas(as.matrix(fit_unif), pars = c('theta'), prob = 0.8) +
     ggtitle("Posterior distribution", "with median and 80% intervals")
-
-
-
-
-
-
-
-
-
