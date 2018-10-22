@@ -1,0 +1,6 @@
+---
+title: 'Assignment #8'
+author: "Elliot Smith"
+date: "10/22/2018"
+output: pdf_document
+---
