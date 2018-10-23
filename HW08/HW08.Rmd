@@ -41,6 +41,10 @@ options(mc.cores = parallel::detectCores())
 
 # Problem 1
 
+Sampling Distribution: $Binomial(n, \theta)$
+\newline
+Prior Distribution: $Beta(\alpha = 1, \beta = 1)$ vs $Uniform(\alpha = 0, \beta = 1)$
+
 ```{r, echo = FALSE, include = FALSE}
 
 ########## Problem 1 ##########
@@ -90,13 +94,13 @@ print(fit_beta)
 
 ```{r, echo = FALSE}
 
-print(fit_beta)
+print(fit_unif)
 
 ```
 
 ### Comments
 
-BLAH BLAH
+In regards to the Model Fit, the change in prior from $Beta(\alpha = 1, \beta = 1)$ to $Uniform(\alpha = 0, \beta = 1)$ had very little impact overall as we can see from the output. The one difference that does appear to manifest on some runs is a difference in $n_{eff}$, but aside from that the results are mostly consistent between the two choices for priors.
 
 \newpage
 
@@ -122,7 +126,7 @@ stan_rhat(fit_unif, 'theta', bins = 10)
 
 ### Comments
 
-BLAH BLAH
+As for the Diagnostic Results, again, we see little difference between the usage of the two different priors. Both of the posteriors using the distinct prior have very clean convergence in all cases and our Rhat value for each prior choice is always centered directly at 1. We can again say that our choice of prior has no material affect here.
 
 ## RStan Traceplots
 
@@ -144,7 +148,7 @@ rstan::traceplot(fit_unif, pars = c("theta"))
 
 ### Comments
 
-BLAH BLAH
+In regards to the RStan traceplots, we again see two very similar traceplots that converge at a reasonable value and appear to be very well formed. It would be almost impossible to be able to distinguish between the two groups of chains for each prior. Not only are we satisified with the mixing and the convergence of our chains, we are again left with the realization that the choice of prior has no great impact on the posterior in this case.
 
 ## R Traceplots and Posterior Densities
 
@@ -175,7 +179,7 @@ plot(as.mcmc(as.matrix(post_theta_unif[[1]])))
 
 ### Comments
 
-BLAH BLAH
+We again get similar results for the R Traceplots and Posterior Densities, the two plots are nearly identical and we can again conclude that the choice of either of these two prior has little affect on the posterior distribution. We would be hard-pressed to distinguish between our two traceplots or posterior densities.
 
 ## Posterior Distributions
 
@@ -199,7 +203,11 @@ mcmc_areas(as.matrix(fit_unif), pars = c('theta'), prob = 0.8) +
 
 ### Comments
 
-BLAH BLAH
+A rehash of the above, the two posterior densities are very similar, almost identical.
+
+## Conclusion
+
+We may conclude that the choice of a $Beta(\alpha = 1, \beta = 1)$ prior or a $Uniform(\alpha = 0, \beta = 1)$ prior will make little difference on the posterior distribution. As a result, we may choose freely between them in this example without negatively affected our result.
 
 \newpage
 
